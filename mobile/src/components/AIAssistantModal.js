@@ -89,7 +89,7 @@ export default function AIAssistantModal({ visible, onClose }) {
               </View>
               <View>
                 <Text style={[styles.modalTitle, { color: colors.text }]}>
-                  Groq AI Financial Coach
+                  AI Financial Coach
                 </Text>
                 <Text style={[styles.modalSubtitle, { color: colors.textSecondary }]}>
                   Instant Budget Insights & Advisory
@@ -113,7 +113,7 @@ export default function AIAssistantModal({ visible, onClose }) {
               <Text style={[styles.modelBadgeText, { color: colors.textSecondary }]}>
                 Engine:{' '}
                 <Text style={{ color: colors.primary, fontWeight: '800' }}>
-                  Groq LPUs (Fast Inference)
+                  Neural Engine (Ultra Fast)
                 </Text>
               </Text>
             </View>
@@ -140,7 +140,7 @@ export default function AIAssistantModal({ visible, onClose }) {
                 </Text>
               </View>
               <Text style={[styles.sectionSub, { color: colors.textSecondary }]}>
-                Groq AI analyzes your current income, expenses, and burn rate to give personalized
+                Smart AI analyzes your current income, expenses, and burn rate to give personalized
                 advice.
               </Text>
 
@@ -236,7 +236,7 @@ export default function AIAssistantModal({ visible, onClose }) {
                   <View style={styles.coachAnswerHeader}>
                     <Ionicons name="shield-checkmark" size={14} color={colors.income} />
                     <Text style={[styles.coachAnswerLabel, { color: colors.income }]}>
-                      Groq Advisor Recommendation:
+                      AI Advisor Recommendation:
                     </Text>
                   </View>
                   <Text style={[styles.resultText, { color: colors.text }]}>{chatAnswer}</Text>
