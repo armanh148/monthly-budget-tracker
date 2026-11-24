@@ -28,19 +28,6 @@ export default function Header({ onOpenSettings }) {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.topBackdrop }]}>
-      {/* Left: 4-Dot Grid / Settings Button (Mockup Style) */}
-      <TouchableOpacity
-        style={[
-          styles.frostedClayBtn,
-          { backgroundColor: colors.primary, borderColor: colors.primary }
-        ]}
-        onPress={onOpenSettings}
-        activeOpacity={0.8}
-        accessibilityLabel="App Settings"
-      >
-        <Ionicons name="grid-outline" size={18} color="#FFFFFF" />
-      </TouchableOpacity>
-
       {/* Center: Executive Frosted Month Capsule */}
       <View
         style={[
