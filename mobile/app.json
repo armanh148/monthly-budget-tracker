@@ -2,6 +2,7 @@
   "expo": {
     "name": "Budget Tracker",
     "slug": "monthly-budget-tracker",
+    "owner": "armannaqvi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -43,6 +44,11 @@
     "plugins": [
       "expo-font",
       "expo-status-bar"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5329f326-8ac4-4e12-adca-56e92e8530da"
+      }
+    }
   }
 }
