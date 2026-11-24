@@ -111,8 +111,8 @@ export default function AuthScreen() {
             styles.authCard,
             {
               backgroundColor: isDark ? colors.surface : '#FFFFFF',
-              borderColor: isDark ? 'rgba(251, 185, 49, 0.35)' : 'rgba(234, 97, 19, 0.18)',
-              shadowColor: isDark ? '#000000' : 'rgba(234, 97, 19, 0.14)',
+              borderColor: colors.border,
+              shadowColor: colors.shadow,
               shadowOffset: { width: 0, height: 6 },
               shadowOpacity: isDark ? 0.45 : 0.08,
               shadowRadius: 16,
@@ -141,7 +141,7 @@ export default function AuthScreen() {
                 style={[
                   styles.tabBtnText,
                   {
-                    color: !isRegister ? '#FFFFFF' : isDark ? '#FFE3B3' : colors.textSecondary,
+                    color: !isRegister ? '#FFFFFF' : colors.textSecondary,
                     fontWeight: !isRegister ? '800' : '600'
                   }
                 ]}
@@ -164,7 +164,7 @@ export default function AuthScreen() {
                 style={[
                   styles.tabBtnText,
                   {
-                    color: isRegister ? '#FFFFFF' : isDark ? '#FFE3B3' : colors.textSecondary,
+                    color: isRegister ? '#FFFFFF' : colors.textSecondary,
                     fontWeight: isRegister ? '800' : '600'
                   }
                 ]}
@@ -178,14 +178,14 @@ export default function AuthScreen() {
           <View style={styles.formArea}>
             {isRegister && (
               <View style={styles.inputGroup}>
-                <Text style={[styles.label, { color: isDark ? '#FFE3B3' : colors.text }]}>
+                <Text style={[styles.label, { color: colors.text }]}>
                   FULL NAME
                 </Text>
                 <View
                   style={[
                     styles.inputField,
                     {
-                      backgroundColor: isDark ? '#170D08' : '#FFF8F2',
+                      backgroundColor: colors.surfaceSubtle,
                       borderColor: colors.border
                     }
                   ]}
@@ -209,14 +209,14 @@ export default function AuthScreen() {
             )}
 
             <View style={styles.inputGroup}>
-              <Text style={[styles.label, { color: isDark ? '#FFE3B3' : colors.text }]}>
+              <Text style={[styles.label, { color: colors.text }]}>
                 EMAIL ADDRESS
               </Text>
               <View
                 style={[
                   styles.inputField,
                   {
-                    backgroundColor: isDark ? '#170D08' : '#FFF8F2',
+                    backgroundColor: colors.surfaceSubtle,
                     borderColor: colors.border
                   }
                 ]}
@@ -240,14 +240,14 @@ export default function AuthScreen() {
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={[styles.label, { color: isDark ? '#FFE3B3' : colors.text }]}>
+              <Text style={[styles.label, { color: colors.text }]}>
                 PASSWORD
               </Text>
               <View
                 style={[
                   styles.inputField,
                   {
-                    backgroundColor: isDark ? '#170D08' : '#FFF8F2',
+                    backgroundColor: colors.surfaceSubtle,
                     borderColor: colors.border
                   }
                 ]}
@@ -307,17 +307,17 @@ export default function AuthScreen() {
                 styles.demoFillBtn,
                 {
                   backgroundColor: isDark ? 'rgba(0, 0, 0, 0.22)' : colors.surfaceSubtle,
-                  borderColor: isDark ? 'rgba(255, 227, 179, 0.3)' : 'rgba(234, 97, 19, 0.18)'
+                  borderColor: colors.border
                 }
               ]}
             >
               <Ionicons
                 name="shield-checkmark"
                 size={14}
-                color={isDark ? '#FFE3B3' : colors.primary}
+                color={colors.primary}
               />
               <Text
-                style={[styles.demoFillText, { color: isDark ? '#FFE3B3' : colors.textSecondary }]}
+                style={[styles.demoFillText, { color: colors.textSecondary }]}
               >
                 Private per-email vault • Set PIN & Face ID after login
               </Text>
@@ -329,7 +329,7 @@ export default function AuthScreen() {
                 styles.demoFillBtn,
                 {
                   backgroundColor: isDark ? 'rgba(0, 0, 0, 0.22)' : colors.surfaceSubtle,
-                  borderColor: isDark ? 'rgba(255, 227, 179, 0.3)' : 'rgba(234, 97, 19, 0.18)'
+                  borderColor: colors.border
                 }
               ]}
               onPress={handleFillDemo}
@@ -337,10 +337,10 @@ export default function AuthScreen() {
               <Ionicons
                 name="flash-outline"
                 size={14}
-                color={isDark ? '#FFE3B3' : colors.primary}
+                color={colors.primary}
               />
               <Text
-                style={[styles.demoFillText, { color: isDark ? '#FFE3B3' : colors.primaryDark }]}
+                style={[styles.demoFillText, { color: colors.primaryDark }]}
               >
                 Try Demo Account (demo@budgettracker.com)
               </Text>

@@ -1,210 +1,208 @@
-// Sunset Luxury Theme (@uiuxaadi palette)
-// Exact Swatches from Design:
-// 1. EA6113 - Sunset Flame / Deep Lava Orange (#EA6113)
-// 2. F88F22 - Warm Sunset Orange / Radiant Ember (#F88F22)
-// 3. FBB931 - Solar Gold / Golden Amber (#FBB931)
-// 4. FFE3B3 - Warm Champagne / Soft Cream Peach (#FFE3B3)
-// Canvas: Clean Silk Canvas (#FEFFFE in Light, Warm Roasted Espresso Obsidian in Dark)
+// Navy Blue, Red & Black Luxury Theme
+// Core Triad:
+// 1. Navy Blue: #0A192F (Deep Navy) | #1E3A8A (Royal Navy) | #2563EB (Electric Blue)
+// 2. Red: #DC2626 (Crimson Red) | #EF4444 (Vibrant Red) | #991B1B (Deep Ruby Red)
+// 3. Black: #000000 (Pure Pitch Black) | #050811 (Midnight Black) | #0A0F1D (Obsidian Surface)
 
 export const palette = {
-  // Light Theme (Default): Ultra-clean Silk Porcelain with Vibrant Sunset Ember Accents
+  // Light Theme: Crisp Canvas with Rich Navy Blue, Crimson Red, and Bold Black Accents
   light: {
     name: 'light',
-    background: '#FEFFFE', // Ultra-clean Silk Canvas
-    sheetBackground: '#FEFFFE',
-    topBackdrop: '#FFF4EB', // Soft Warm Peach Mist Header Backdrop
-    topBackdropDark: '#FFE8D6',
-    topHeaderBg: '#FFF4EB',
+    background: '#F8FAFC', // Crisp Slate Canvas
+    sheetBackground: '#FFFFFF',
+    topBackdrop: '#0A192F', // Iconic Deep Navy Blue Header
+    topBackdropDark: '#050D1A',
+    topHeaderBg: '#0A192F',
 
-    surface: '#FFFFFF', // Crisp Elevated White Card
-    surfaceSubtle: '#FFF8F2', // Soft Peach Surface
-    surfaceHover: '#FFF0E3',
-    border: 'rgba(234, 97, 19, 0.16)', // Subtle Sunset Border
-    borderSubtle: '#FFE8D6',
+    surface: '#FFFFFF', // Elevated Pure White Card
+    surfaceSubtle: '#F1F5F9', // Crisp Light Surface
+    surfaceHover: '#E2E8F0',
+    border: 'rgba(10, 25, 47, 0.14)', // Navy Border
+    borderSubtle: '#E2E8F0',
     clayBorderTop: '#FFFFFF',
-    clayBorderBottom: '#F0D5C3',
+    clayBorderBottom: '#CBD5E1',
 
-    // Hero Balance Card: Sunset Flame #EA6113 -> #F88F22
-    brandCard: '#EA6113',
-    brandCardHighlight: 'rgba(255, 227, 179, 0.45)',
-    brandCardBottom: '#9C3A05',
-    brandCardBorder: 'rgba(251, 185, 49, 0.6)',
+    // Hero Balance Card: Deep Navy Blue #0A192F with Red & Metallic Edge
+    brandCard: '#0A192F',
+    brandCardHighlight: 'rgba(37, 99, 235, 0.5)',
+    brandCardBottom: '#000000',
+    brandCardBorder: 'rgba(220, 38, 38, 0.65)',
     brandCardText: '#FFFFFF',
 
     // Typography
-    text: '#1F110B', // Rich Roasted Espresso (Super Crisp & Readable)
+    text: '#000000', // Jet Black
     textWhite: '#FFFFFF',
-    textSecondary: '#7A4D33',
-    textTertiary: '#A37255',
-    textMuted: '#CCA38A',
+    textSecondary: '#334155',
+    textTertiary: '#64748B',
+    textMuted: '#94A3B8',
 
     // Brand Accents
-    primary: '#EA6113', // Deep Sunset Flame
-    primaryDark: '#B84507',
-    primaryLight: 'rgba(234, 97, 19, 0.12)',
+    primary: '#0A192F', // Deep Navy Blue
+    primaryDark: '#000000', // Jet Black
+    primaryLight: 'rgba(10, 25, 47, 0.10)',
     primaryText: '#FFFFFF',
 
     // Financial Metrics
-    income: '#F88F22', // Warm Sunset Orange
-    incomeDark: '#C7670A',
-    incomeHighlight: '#FFE3B3',
-    incomeLight: 'rgba(248, 143, 34, 0.14)',
-    incomeSurface: '#F88F22',
-    incomeBorder: '#C7670A',
+    income: '#1E3A8A', // Navy Blue
+    incomeDark: '#0A192F',
+    incomeHighlight: '#93C5FD',
+    incomeLight: 'rgba(30, 58, 138, 0.12)',
+    incomeSurface: '#1E3A8A',
+    incomeBorder: '#0A192F',
 
-    expense: '#EA6113', // Sunset Flame
-    expenseDark: '#B84507',
-    expenseHighlight: '#FF8E4D',
-    expenseLight: 'rgba(234, 97, 19, 0.14)',
-    expenseSurface: '#EA6113',
-    expenseBorder: '#B84507',
+    expense: '#DC2626', // Crimson Red
+    expenseDark: '#991B1B',
+    expenseHighlight: '#EF4444',
+    expenseLight: 'rgba(220, 38, 38, 0.12)',
+    expenseSurface: '#DC2626',
+    expenseBorder: '#991B1B',
 
-    warning: '#FBB931',
-    warningDark: '#D49419',
-    warningLight: '#FFF8EA',
-    warningSurface: '#FBB931',
-    warningBorder: '#D49419',
+    warning: '#DC2626',
+    warningDark: '#991B1B',
+    warningLight: '#FEF2F2',
+    warningSurface: '#DC2626',
+    warningBorder: '#991B1B',
 
-    info: '#F88F22',
-    infoDark: '#EA6113',
-    infoLight: '#FFF2E6',
+    info: '#1E3A8A',
+    infoDark: '#0A192F',
+    infoLight: '#EFF6FF',
 
     // 4 Action Tiles
-    tileMint: '#F88F22', // Tile 1: Income (Warm Orange)
-    tileMintTop: '#FFA64D',
-    tileMintBottom: '#C7670A',
+    tileMint: '#0A192F', // Tile 1: Income (Navy Blue)
+    tileMintTop: '#1E3A8A',
+    tileMintBottom: '#000000',
     tileMintText: '#FFFFFF',
 
-    tileCoral: '#EA6113', // Tile 2: Expense (Sunset Flame)
-    tileCoralTop: '#FF7A2E',
-    tileCoralBottom: '#B03F04',
+    tileCoral: '#DC2626', // Tile 2: Expense (Crimson Red)
+    tileCoralTop: '#EF4444',
+    tileCoralBottom: '#991B1B',
     tileCoralText: '#FFFFFF',
 
-    tileViolet: '#FBB931', // Tile 3: Analytics (Solar Gold)
-    tileVioletTop: '#FFD166',
-    tileVioletBottom: '#D49419',
-    tileVioletText: '#1E100A',
+    tileViolet: '#1E293B', // Tile 3: Analytics (Midnight Slate)
+    tileVioletTop: '#334155',
+    tileVioletBottom: '#0F172A',
+    tileVioletText: '#FFFFFF',
 
-    tileCyan: '#32190F', // Tile 4: Statement (Dark Cocoa Glass)
-    tileCyanTop: '#4D2919',
-    tileCyanBottom: '#220F08',
-    tileCyanText: '#FFE3B3',
+    tileCyan: '#000000', // Tile 4: Statement (Pitch Black)
+    tileCyanTop: '#18181B',
+    tileCyanBottom: '#000000',
+    tileCyanText: '#FFFFFF',
 
-    dockBg: '#FFFFFF', // Clean White Floating Dock in Light Mode
-    dockTop: 'rgba(234, 97, 19, 0.12)',
-    dockBottom: '#F0D5C3',
-    dockActive: '#EA6113',
+    dockBg: '#FFFFFF',
+    dockTop: 'rgba(10, 25, 47, 0.10)',
+    dockBottom: '#E2E8F0',
+    dockActive: '#DC2626', // Red Active Accent
     dockActiveIcon: '#FFFFFF',
-    dockInactive: '#9E775F',
+    dockInactive: '#64748B',
 
-    chartBg: '#FFF8F2',
-    chartWell: '#FFE8D6',
-    chartBar: '#EA6113',
-    chartBarTop: '#FBB931',
-    chartBarBottom: '#EA6113',
+    chartBg: '#F8FAFC',
+    chartWell: '#E2E8F0',
+    chartBar: '#0A192F',
+    chartBarTop: '#DC2626',
+    chartBarBottom: '#000000',
 
-    shadow: 'rgba(234, 97, 19, 0.15)',
-    cardShadow: '#EA6113'
+    shadow: 'rgba(0, 0, 0, 0.15)',
+    cardShadow: '#0A192F'
   },
 
-  // Dark Theme: Rich Roasted Espresso Canvas with Glowing Sunset Glassmorphism
+  // Dark Theme: Pure Midnight Pitch Black Canvas with Glowing Navy Blue & Crimson Red Accents
   dark: {
     name: 'dark',
-    background: '#140C08', // Warm Roasted Espresso Canvas
-    sheetBackground: '#190E09',
-    topBackdrop: '#1E100A', // Warm Amber Header Backdrop
-    topBackdropDark: '#100804',
-    topHeaderBg: '#1E100A',
+    background: '#000000', // Pure Pitch Black Canvas
+    sheetBackground: '#050811',
+    topBackdrop: '#050811', // Deep Midnight Header Backdrop
+    topBackdropDark: '#000000',
+    topHeaderBg: '#050811',
 
-    surface: '#1E110A', // Sleek Roasted Cocoa Card
-    surfaceSubtle: '#26140C', // Ambient Sunset Glow Surface
-    surfaceHover: '#301B11',
-    border: 'rgba(248, 143, 34, 0.22)', // Subtle Sunset Orange Stroke
-    borderSubtle: 'rgba(255, 227, 179, 0.12)',
-    clayBorderTop: 'rgba(255, 227, 179, 0.25)', // Champagne Sheen
-    clayBorderBottom: '#0A0503',
+    surface: '#0A0F1D', // Obsidian Navy Card
+    surfaceSubtle: '#0F172A', // Midnight Slate Surface
+    surfaceHover: '#1E293B',
+    border: 'rgba(30, 58, 138, 0.35)', // Navy Stroke
+    borderSubtle: 'rgba(255, 255, 255, 0.10)',
+    clayBorderTop: 'rgba(255, 255, 255, 0.18)',
+    clayBorderBottom: '#000000',
 
-    // Hero Balance Card: Radiant Sunset Flame #EA6113 -> #F88F22
-    brandCard: '#EA6113',
-    brandCardHighlight: 'rgba(255, 227, 179, 0.45)',
-    brandCardBottom: '#9C3A05',
-    brandCardBorder: 'rgba(251, 185, 49, 0.6)',
+    // Hero Balance Card: Deep Navy Blue with Crimson Red Bevel
+    brandCard: '#0A192F',
+    brandCardHighlight: 'rgba(37, 99, 235, 0.55)',
+    brandCardBottom: '#000000',
+    brandCardBorder: 'rgba(220, 38, 38, 0.65)',
     brandCardText: '#FFFFFF',
 
     // Typography
-    text: '#FFE3B3', // Luxury Champagne typography - readable & ultra-premium
+    text: '#FFFFFF', // Ultra-Crisp White on Black
     textWhite: '#FFFFFF',
-    textSecondary: '#D4A381',
-    textTertiary: '#A3775B',
-    textMuted: '#73503C',
+    textSecondary: '#94A3B8',
+    textTertiary: '#64748B',
+    textMuted: '#475569',
 
     // Brand Accents
-    primary: '#F88F22', // Radiant Sunset Orange
-    primaryDark: '#EA6113', // Deep Sunset Flame
-    primaryLight: 'rgba(248, 143, 34, 0.18)',
+    primary: '#1D4ED8', // Vibrant Navy Blue
+    primaryDark: '#0A192F', // Deep Navy
+    primaryLight: 'rgba(29, 78, 216, 0.20)',
     primaryText: '#FFFFFF',
 
-    // Financial Metrics (Sunset Gold & Sunset Flame)
-    income: '#FBB931', // Golden Amber
-    incomeDark: '#D49419',
-    incomeHighlight: '#FFE3B3',
-    incomeLight: 'rgba(251, 185, 49, 0.18)',
-    incomeSurface: '#FBB931',
-    incomeBorder: '#D49419',
+    // Financial Metrics
+    income: '#2563EB', // Electric Blue / Navy
+    incomeDark: '#1E3A8A',
+    incomeHighlight: '#93C5FD',
+    incomeLight: 'rgba(37, 99, 235, 0.20)',
+    incomeSurface: '#2563EB',
+    incomeBorder: '#1E3A8A',
 
-    expense: '#EA6113', // Sunset Flame
-    expenseDark: '#B84507',
-    expenseHighlight: '#FF8E4D',
-    expenseLight: 'rgba(234, 97, 19, 0.18)',
-    expenseSurface: '#EA6113',
-    expenseBorder: '#B84507',
+    expense: '#DC2626', // Crimson Red
+    expenseDark: '#991B1B',
+    expenseHighlight: '#EF4444',
+    expenseLight: 'rgba(220, 38, 38, 0.22)',
+    expenseSurface: '#DC2626',
+    expenseBorder: '#991B1B',
 
-    warning: '#FBB931',
-    warningDark: '#D49419',
-    warningLight: 'rgba(251, 185, 49, 0.15)',
-    warningSurface: '#FBB931',
-    warningBorder: '#D49419',
+    warning: '#DC2626',
+    warningDark: '#991B1B',
+    warningLight: 'rgba(220, 38, 38, 0.20)',
+    warningSurface: '#DC2626',
+    warningBorder: '#991B1B',
 
-    info: '#F88F22',
-    infoDark: '#EA6113',
-    infoLight: 'rgba(248, 143, 34, 0.15)',
+    info: '#1D4ED8',
+    infoDark: '#0A192F',
+    infoLight: 'rgba(29, 78, 216, 0.18)',
 
-    // 4 Action Tiles (Executive Sunset Squircles)
-    tileMint: '#F88F22', // Tile 1: Income (Radiant Ember)
-    tileMintTop: '#FFA64D',
-    tileMintBottom: '#C7670A',
+    // 4 Action Tiles
+    tileMint: '#1E3A8A', // Tile 1: Income (Royal Navy Blue)
+    tileMintTop: '#2563EB',
+    tileMintBottom: '#0A192F',
     tileMintText: '#FFFFFF',
 
-    tileCoral: '#EA6113', // Tile 2: Expense (Sunset Flame)
-    tileCoralTop: '#FF7A2E',
-    tileCoralBottom: '#B03F04',
+    tileCoral: '#DC2626', // Tile 2: Expense (Crimson Red)
+    tileCoralTop: '#EF4444',
+    tileCoralBottom: '#991B1B',
     tileCoralText: '#FFFFFF',
 
-    tileViolet: '#FBB931', // Tile 3: Analytics (Solar Gold)
-    tileVioletTop: '#FFD166',
-    tileVioletBottom: '#D49419',
-    tileVioletText: '#1E100A',
+    tileViolet: '#0A192F', // Tile 3: Analytics (Deep Navy Blue)
+    tileVioletTop: '#1E293B',
+    tileVioletBottom: '#000000',
+    tileVioletText: '#FFFFFF',
 
-    tileCyan: '#2B160E', // Tile 4: Statement (Dark Cocoa Glass)
-    tileCyanTop: '#442316',
-    tileCyanBottom: '#170B06',
-    tileCyanText: '#FFE3B3',
+    tileCyan: '#000000', // Tile 4: Statement (Pitch Black)
+    tileCyanTop: '#111827',
+    tileCyanBottom: '#000000',
+    tileCyanText: '#FFFFFF',
 
-    dockBg: '#190E09',
-    dockTop: 'rgba(255, 227, 179, 0.15)',
-    dockBottom: '#0D0603',
-    dockActive: '#F88F22',
+    dockBg: '#050811',
+    dockTop: 'rgba(30, 58, 138, 0.30)',
+    dockBottom: '#000000',
+    dockActive: '#DC2626', // Crimson Red Active Icon
     dockActiveIcon: '#FFFFFF',
-    dockInactive: '#8F664E',
+    dockInactive: '#475569',
 
-    chartBg: '#1E110A',
-    chartWell: '#120A06',
-    chartBar: '#F88F22',
-    chartBarTop: '#FBB931',
-    chartBarBottom: '#EA6113',
+    chartBg: '#0A0F1D',
+    chartWell: '#000000',
+    chartBar: '#1D4ED8',
+    chartBarTop: '#DC2626',
+    chartBarBottom: '#0A192F',
 
     shadow: '#000000',
-    cardShadow: '#EA6113'
+    cardShadow: '#0A192F'
   }
 };
 
@@ -212,13 +210,13 @@ export const palette = {
 export const getClayCard = (themeMode = 'light') => {
   const isDark = themeMode === 'dark';
   return {
-    backgroundColor: isDark ? '#1E110A' : '#FFFFFF',
+    backgroundColor: isDark ? '#0A0F1D' : '#FFFFFF',
     borderRadius: 22,
     borderWidth: 1,
-    borderColor: isDark ? 'rgba(248, 143, 34, 0.22)' : 'rgba(234, 97, 19, 0.16)',
-    shadowColor: isDark ? '#000000' : 'rgba(234, 97, 19, 0.12)',
+    borderColor: isDark ? 'rgba(30, 58, 138, 0.35)' : 'rgba(10, 25, 47, 0.12)',
+    shadowColor: isDark ? '#000000' : 'rgba(10, 25, 47, 0.10)',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: isDark ? 0.45 : 0.08,
+    shadowOpacity: isDark ? 0.5 : 0.08,
     shadowRadius: 14,
     elevation: 4
   };
@@ -227,25 +225,25 @@ export const getClayCard = (themeMode = 'light') => {
 // Executive Tactile Button Helper
 export const getClayButton = (themeMode = 'light', customBg, customBottom) => {
   const isDark = themeMode === 'dark';
-  let bg = customBg || (isDark ? '#F88F22' : '#EA6113');
-  let shadow = customBottom || (isDark ? '#C7670A' : '#9C3A05');
+  let bg = customBg || (isDark ? '#1D4ED8' : '#0A192F');
+  let shadow = customBottom || (isDark ? '#0A192F' : '#000000');
 
   if (customBg === 'income') {
-    bg = isDark ? '#F88F22' : '#EA6113';
-    shadow = isDark ? '#C7670A' : '#9C3A05';
+    bg = isDark ? '#2563EB' : '#1E3A8A';
+    shadow = isDark ? '#1E3A8A' : '#0A192F';
   } else if (customBg === 'expense') {
-    bg = '#EA6113';
-    shadow = '#9C3A05';
+    bg = '#DC2626';
+    shadow = '#991B1B';
   } else if (customBg === 'primary') {
-    bg = isDark ? '#F88F22' : '#EA6113';
-    shadow = isDark ? '#C7670A' : '#9C3A05';
+    bg = isDark ? '#1D4ED8' : '#0A192F';
+    shadow = isDark ? '#0A192F' : '#000000';
   }
 
   return {
     backgroundColor: bg,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.35)',
+    borderColor: 'rgba(255, 255, 255, 0.25)',
     shadowColor: shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -258,10 +256,10 @@ export const getClayButton = (themeMode = 'light', customBg, customBottom) => {
 export const getClayInput = (themeMode = 'light') => {
   const isDark = themeMode === 'dark';
   return {
-    backgroundColor: isDark ? '#170D08' : '#FFF8F2',
+    backgroundColor: isDark ? '#050811' : '#F8FAFC',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: isDark ? 'rgba(248, 143, 34, 0.24)' : 'rgba(234, 97, 19, 0.18)'
+    borderColor: isDark ? 'rgba(30, 58, 138, 0.35)' : 'rgba(10, 25, 47, 0.15)'
   };
 };
 
@@ -271,58 +269,58 @@ export const getClayPill = (themeMode = 'light') => {
   return {
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: isDark ? 'rgba(248, 143, 34, 0.25)' : 'rgba(234, 97, 19, 0.18)',
-    backgroundColor: isDark ? 'rgba(255, 227, 179, 0.08)' : '#FFF3E8'
+    borderColor: isDark ? 'rgba(30, 58, 138, 0.35)' : 'rgba(10, 25, 47, 0.15)',
+    backgroundColor: isDark ? 'rgba(30, 58, 138, 0.18)' : 'rgba(10, 25, 47, 0.06)'
   };
 };
 
 export const categoryColors = {
   Food: {
-    color: '#EA6113',
-    darkColor: '#B84507',
-    bg: 'rgba(234, 97, 19, 0.16)',
+    color: '#DC2626',
+    darkColor: '#991B1B',
+    bg: 'rgba(220, 38, 38, 0.14)',
     icon: 'fast-food'
   },
   Bills: {
-    color: '#F88F22',
-    darkColor: '#C7670A',
-    bg: 'rgba(248, 143, 34, 0.16)',
+    color: '#1E3A8A',
+    darkColor: '#0A192F',
+    bg: 'rgba(30, 58, 138, 0.14)',
     icon: 'flash'
   },
   Travel: {
-    color: '#FBB931',
-    darkColor: '#D49419',
-    bg: 'rgba(251, 185, 49, 0.16)',
+    color: '#0A192F',
+    darkColor: '#000000',
+    bg: 'rgba(10, 25, 47, 0.14)',
     icon: 'car-sport'
   },
   Shopping: {
-    color: '#EA6113',
-    darkColor: '#B84507',
-    bg: 'rgba(234, 97, 19, 0.16)',
+    color: '#EF4444',
+    darkColor: '#B91C1C',
+    bg: 'rgba(239, 68, 68, 0.14)',
     icon: 'bag-handle'
   },
   Health: {
-    color: '#F88F22',
-    darkColor: '#C7670A',
-    bg: 'rgba(248, 143, 34, 0.16)',
+    color: '#B91C1C',
+    darkColor: '#7F1D1D',
+    bg: 'rgba(185, 28, 28, 0.14)',
     icon: 'medkit'
   },
   Entertainment: {
-    color: '#FBB931',
-    darkColor: '#D49419',
-    bg: 'rgba(251, 185, 49, 0.16)',
+    color: '#2563EB',
+    darkColor: '#1E3A8A',
+    bg: 'rgba(37, 99, 235, 0.14)',
     icon: 'game-controller'
   },
   Education: {
-    color: '#EA6113',
-    darkColor: '#B84507',
-    bg: 'rgba(234, 97, 19, 0.16)',
+    color: '#1D4ED8',
+    darkColor: '#0A192F',
+    bg: 'rgba(29, 78, 216, 0.14)',
     icon: 'book'
   },
   General: {
-    color: '#F88F22',
-    darkColor: '#C7670A',
-    bg: 'rgba(248, 143, 34, 0.16)',
+    color: '#000000',
+    darkColor: '#000000',
+    bg: 'rgba(0, 0, 0, 0.12)',
     icon: 'cube'
   }
 };

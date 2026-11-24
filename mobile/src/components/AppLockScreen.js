@@ -402,13 +402,13 @@ const styles = StyleSheet.create({
     width: 68,
     height: 68,
     borderRadius: 22,
-    backgroundColor: '#EA6113',
+    backgroundColor: '#0A192F',
     borderWidth: 1.5,
-    borderColor: 'rgba(255, 227, 179, 0.4)',
+    borderColor: 'rgba(255, 255, 255, 0.4)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
-    shadowColor: '#F88F22',
+    shadowColor: '#0A192F',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
     shadowRadius: 16,
@@ -519,9 +519,9 @@ const styles = StyleSheet.create({
     height: 60
   },
   bioKeyBtn: {
-    backgroundColor: 'rgba(248, 143, 34, 0.25)',
+    backgroundColor: 'rgba(30, 58, 138, 0.35)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.35)'
+    borderColor: 'rgba(255, 255, 255, 0.3)'
   },
   bioKeyLabel: {
     color: '#FFFFFF',
@@ -573,11 +573,11 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 50,
     borderRadius: 16,
-    backgroundColor: '#EA6113',
+    backgroundColor: '#0A192F',
     borderTopWidth: 2,
     borderBottomWidth: 4.5,
-    borderTopColor: '#FFA066',
-    borderBottomColor: '#A83E05',
+    borderTopColor: '#2563EB',
+    borderBottomColor: '#000000',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

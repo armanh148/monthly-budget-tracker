@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: Platform.OS === 'web' ? '100%' : width,
     height: Platform.OS === 'web' ? '100%' : height,
-    backgroundColor: '#130E0B', // Full screen Espresso Obsidian
+    backgroundColor: '#000000', // Pitch Black Canvas
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 999999
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
     borderRadius: 160,
-    backgroundColor: 'rgba(231, 168, 161, 0.12)'
+    backgroundColor: 'rgba(30, 58, 138, 0.25)'
   },
   glowCircle2: {
     position: 'absolute',
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 140,
-    backgroundColor: 'rgba(226, 141, 147, 0.12)'
+    backgroundColor: 'rgba(220, 38, 38, 0.20)'
   },
   contentWrap: {
     alignItems: 'center',
@@ -191,21 +191,21 @@ const styles = StyleSheet.create({
     width: 98,
     height: 98,
     borderRadius: 32,
-    backgroundColor: '#EA6113',
+    backgroundColor: '#0A192F',
     borderTopWidth: 3,
     borderLeftWidth: 2,
     borderRightWidth: 1.5,
     borderBottomWidth: 6,
-    borderTopColor: '#FFA066',
-    borderLeftColor: '#FFA066',
-    borderRightColor: 'rgba(0, 0, 0, 0.08)',
-    borderBottomColor: '#A83E05',
+    borderTopColor: '#2563EB',
+    borderLeftColor: '#2563EB',
+    borderRightColor: 'rgba(0, 0, 0, 0.3)',
+    borderBottomColor: '#000000',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    shadowColor: '#F88F22',
+    shadowColor: '#0A192F',
     shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: 0.45,
+    shadowOpacity: 0.55,
     shadowRadius: 22,
     elevation: 10
   },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
   progressBar: {
     height: '100%',
     borderRadius: 4,
-    backgroundColor: '#F88F22'
+    backgroundColor: '#DC2626'
   },
   progressStatusRow: {
     flexDirection: 'row',

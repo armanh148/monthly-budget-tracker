@@ -45,7 +45,7 @@ export default function SummaryCards({
 
   const isCustomAlert = isOverBudget || isBudgetAlert;
   const cardTextColor = isCustomAlert ? '#FFFFFF' : colors.brandCardText || '#FFFFFF';
-  const cardMutedColor = isCustomAlert ? 'rgba(255, 255, 255, 0.82)' : 'rgba(255, 227, 179, 0.85)';
+  const cardMutedColor = isCustomAlert ? 'rgba(255, 255, 255, 0.82)' : 'rgba(255, 255, 255, 0.85)';
   const cardStripBg = 'rgba(0, 0, 0, 0.22)';
 
   return (
@@ -80,9 +80,9 @@ export default function SummaryCards({
           <View style={styles.cardTopRow}>
             <View style={styles.issuerBadgeWrap}>
               <View style={styles.issuerIconPill}>
-                <Ionicons name="diamond" size={13} color="#FFE3B3" />
+                <Ionicons name="diamond" size={13} color="#93C5FD" />
               </View>
-              <Text style={styles.issuerTitle}>SUNSET VAULT</Text>
+              <Text style={styles.issuerTitle}>NAVY VAULT</Text>
             </View>
 
             <View style={styles.topRightBadges}>
@@ -188,7 +188,7 @@ export default function SummaryCards({
               styles.metricsStrip,
               {
                 backgroundColor: cardStripBg,
-                borderColor: 'rgba(255, 227, 179, 0.22)'
+                borderColor: 'rgba(255, 255, 255, 0.22)'
               }
             ]}
           >
@@ -198,7 +198,7 @@ export default function SummaryCards({
               activeOpacity={0.8}
             >
               <View style={styles.metricTitleRow}>
-                <View style={[styles.metricDot, { backgroundColor: '#FBB931' }]} />
+                <View style={[styles.metricDot, { backgroundColor: '#3B82F6' }]} />
                 <Text style={[styles.metricOverline, { color: cardMutedColor }]}>INCOME</Text>
               </View>
               <Text style={[styles.metricVal, { color: cardTextColor }]}>
@@ -210,7 +210,7 @@ export default function SummaryCards({
               style={[
                 styles.metricDivider,
                 {
-                  backgroundColor: 'rgba(255, 227, 179, 0.2)'
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)'
                 }
               ]}
             />
@@ -221,7 +221,7 @@ export default function SummaryCards({
               activeOpacity={0.8}
             >
               <View style={styles.metricTitleRow}>
-                <View style={[styles.metricDot, { backgroundColor: '#FFE3B3' }]} />
+                <View style={[styles.metricDot, { backgroundColor: '#EF4444' }]} />
                 <Text style={[styles.metricOverline, { color: cardMutedColor }]}>EXPENSES</Text>
               </View>
               <Text style={[styles.metricVal, { color: cardTextColor }]}>
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: 'rgba(251, 185, 49, 0.18)'
+    backgroundColor: 'rgba(37, 99, 235, 0.22)'
   },
 
   // Row 1: Top Issuer Row
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: 'rgba(0, 0, 0, 0.28)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.45)',
+    borderColor: 'rgba(255, 255, 255, 0.45)',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -456,12 +456,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.45)'
+    borderColor: 'rgba(255, 255, 255, 0.45)'
   },
   platinumMetalText: {
     fontSize: 9,
     fontWeight: '900',
-    color: '#FFE3B3',
+    color: '#FFFFFF',
     letterSpacing: 1.5
   },
 
@@ -603,7 +603,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 1
   },
   digitsHighlight: {
-    color: '#FFE3B3'
+    color: '#93C5FD'
   },
 
   // Row 4: Footer Meta & Mastercard

@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     padding: 2,
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.35)',
+    borderColor: 'rgba(30, 58, 138, 0.35)',
     shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   avatarInner: {
     flex: 1,
     borderRadius: 17,
-    backgroundColor: '#EA6113',
+    backgroundColor: '#0A192F',
     alignItems: 'center',
     justifyContent: 'center'
   },

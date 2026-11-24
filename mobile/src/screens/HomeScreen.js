@@ -121,7 +121,7 @@ export default function HomeScreen() {
                 style={[
                   styles.aiAdvisorBanner,
                   clayCard,
-                  { backgroundColor: colors.brandCard, borderColor: 'rgba(251, 185, 49, 0.4)' }
+                  { backgroundColor: colors.brandCard, borderColor: 'rgba(37, 99, 235, 0.4)' }
                 ]}
                 onPress={() => setShowAiModal(true)}
                 activeOpacity={0.8}
@@ -130,10 +130,10 @@ export default function HomeScreen() {
                 <View
                   style={[
                     styles.aiAdvisorIcon,
-                    { backgroundColor: 'rgba(255, 227, 179, 0.22)', borderColor: '#FFE3B3' }
+                    { backgroundColor: 'rgba(37, 99, 235, 0.22)', borderColor: '#3B82F6' }
                   ]}
                 >
-                  <Ionicons name="sparkles" size={18} color="#FFE3B3" />
+                  <Ionicons name="sparkles" size={18} color="#93C5FD" />
                 </View>
                 <View style={styles.aiAdvisorTextWrap}>
                   <View style={styles.aiAdvisorHeaderRow}>
@@ -144,11 +144,11 @@ export default function HomeScreen() {
                       <Text style={styles.aiNewPillText}>GROQ LPU™</Text>
                     </View>
                   </View>
-                  <Text style={[styles.aiAdvisorSub, { color: 'rgba(255, 227, 179, 0.9)' }]}>
+                  <Text style={[styles.aiAdvisorSub, { color: 'rgba(255, 255, 255, 0.9)' }]}>
                     Instant spending insights, health check & financial tips
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color="#FFE3B3" />
+                <Ionicons name="chevron-forward" size={18} color="#93C5FD" />
               </TouchableOpacity>
             </View>
 
@@ -210,7 +210,7 @@ export default function HomeScreen() {
             styles.bottomDock,
             {
               backgroundColor: colors.dockBg,
-              borderColor: 'rgba(255, 227, 179, 0.16)'
+              borderColor: colors.border
             }
           ]}
         >
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     fontWeight: '800'
   },
   aiNewPill: {
-    backgroundColor: '#FBB931',
+    backgroundColor: '#DC2626',
     paddingHorizontal: 6,
     paddingVertical: 1,
     borderRadius: 6
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
   aiNewPillText: {
     fontSize: 9,
     fontWeight: '900',
-    color: '#1E100A'
+    color: '#FFFFFF'
   },
   aiAdvisorSub: {
     fontSize: 11,
