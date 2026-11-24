@@ -13,7 +13,6 @@ import {
 import Ionicons from '../components/Icon';
 import { useAuth } from '../context/AuthContext';
 import { palette } from '../theme/colors';
-import ServerConfigModal from '../components/ServerConfigModal';
 
 export default function AuthScreen() {
   const { login, register, themeMode, toggleTheme } = useAuth();
@@ -26,7 +25,6 @@ export default function AuthScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [showServerConfig, setShowServerConfig] = useState(false);
 
   const normalizeEmail = (val) => {
     const trimmed = (val || '').trim();
@@ -89,17 +87,6 @@ export default function AuthScreen() {
             accessibilityLabel="Toggle Theme"
           >
             <Ionicons name={isDark ? 'sunny-outline' : 'moon-outline'} size={18} color="#FFFFFF" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.frostedTopBtn,
-              { backgroundColor: colors.primary, borderColor: colors.primary }
-            ]}
-            onPress={() => setShowServerConfig(true)}
-            accessibilityLabel="Server Settings"
-          >
-            <Ionicons name="server-outline" size={18} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
@@ -362,9 +349,6 @@ export default function AuthScreen() {
           <Text style={styles.footerText}>Multi-User Cloud Sync • Neon PostgreSQL</Text>
         </View>
       </ScrollView>
-
-      {/* Server Configuration Modal */}
-      <ServerConfigModal visible={showServerConfig} onClose={() => setShowServerConfig(false)} />
     </KeyboardAvoidingView>
   );
 }
