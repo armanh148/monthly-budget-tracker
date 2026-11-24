@@ -14,8 +14,8 @@ A complete full-stack mobile application that allows users to record, track, and
 
 | Deliverable | Details / Link |
 | :--- | :--- |
-| **Direct APK Download** | [Google Drive APK Link (Verified Public)](https://drive.google.com/file/d/1_kmtfhxsqMRdWVqdfz0boLuHAwCJt_Ga/view?usp=drive_link) |
-| **EAS Cloud Build ID** | `b1ff5624-1818-4eb9-9402-caab10cd252c` (EAS Preview Profile) |
+| **Direct APK Download** | [Expo Direct APK Download](https://expo.dev/artifacts/eas/GMaj81-ziK_8IXRdHqq2GToIl8kPoC7furNIrmWJJ1w.apk) |
+| **EAS Cloud Build ID** | `0e6309fc-5af1-49e7-8989-e3ed77a55680` ([EAS Build Dashboard](https://expo.dev/accounts/armannaqvi/projects/monthly-budget-tracker/builds/0e6309fc-5af1-49e7-8989-e3ed77a55680)) |
 | **Live Backend API** | `https://monthly-budget-tracker-iphone-app.vercel.app` |
 | **Health Check Endpoint** | `https://monthly-budget-tracker-iphone-app.vercel.app/health` |
 | **Database** | Neon Cloud Serverless PostgreSQL (`sslmode=require`) |
