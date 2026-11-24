@@ -14,7 +14,6 @@ import Ionicons from './Icon';
 import { useBudget } from '../context/BudgetContext';
 import { useAuth } from '../context/AuthContext';
 import { palette, getClayCard, getClayInput, getClayPill } from '../theme/colors';
-import { aiAgentService } from '../services/aiAgent';
 
 const CATEGORIES = [
   'General',
@@ -65,16 +64,9 @@ export default function AddEditExpenseModal({ visible, onClose, editingExpense }
   const [errorText, setErrorText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Groq AI Magic Fill states
-  const [aiInput, setAiInput] = useState('');
-  const [isAiParsing, setIsAiParsing] = useState(false);
-  const [aiFeedback, setAiFeedback] = useState(null);
-
   useEffect(() => {
     if (visible) {
       setErrorText('');
-      setAiInput('');
-      setAiFeedback(null);
       if (editingExpense) {
         setName(editingExpense.name || editingExpense.title || '');
         setAmountStr(String(editingExpense.amount || ''));
@@ -92,30 +84,6 @@ export default function AddEditExpenseModal({ visible, onClose, editingExpense }
       }
     }
   }, [visible, editingExpense]);
-
-  const handleAiParse = async () => {
-    if (!aiInput || !aiInput.trim()) return;
-    setIsAiParsing(true);
-    setAiFeedback(null);
-    try {
-      const parsed = await aiAgentService.parseExpense(aiInput, date);
-      setName(parsed.name);
-      setAmountStr(String(parsed.amount));
-      if (parsed.category) setCategory(parsed.category);
-      if (parsed.date) setDate(parsed.date);
-      setAiFeedback({
-        ok: true,
-        msg: `✓ AI Filled: "${parsed.name}" • Rs. ${parsed.amount.toLocaleString()} • ${parsed.category}`
-      });
-    } catch (err) {
-      setAiFeedback({
-        ok: false,
-        msg: err?.message || 'Could not parse expense.'
-      });
-    } finally {
-      setIsAiParsing(false);
-    }
-  };
 
   const currentRemaining = summary.remaining_balance || 0;
   const numAmount = parseFloat(amountStr) || 0;
@@ -210,73 +178,6 @@ export default function AddEditExpenseModal({ visible, onClose, editingExpense }
           </View>
 
           <ScrollView style={styles.formScroll} showsVerticalScrollIndicator={false}>
-            {/* Groq AI Natural Language Quick Fill */}
-            {!editingExpense && (
-              <View
-                style={[
-                  styles.aiCard,
-                  clayPill,
-                  {
-                    backgroundColor: colors.surfaceSubtle,
-                    borderColor: 'rgba(231, 168, 161, 0.4)'
-                  }
-                ]}
-              >
-                <View style={styles.aiHeaderRow}>
-                  <View style={styles.aiTag}>
-                    <Ionicons name="sparkles" size={13} color="#22160F" />
-                    <Text style={styles.aiTagText}>GROQ AI QUICK FILL</Text>
-                  </View>
-                  <Text style={[styles.aiHintText, { color: colors.textSecondary }]}>
-                    e.g. &quot;Biryani 850&quot;
-                  </Text>
-                </View>
-
-                <View style={[styles.aiInputRow, clayInput, { backgroundColor: colors.surface }]}>
-                  <TextInput
-                    style={[styles.aiTextInput, { color: colors.text }]}
-                    placeholder="Type in plain words (e.g. Petrol 800)..."
-                    placeholderTextColor={colors.textTertiary}
-                    value={aiInput}
-                    onChangeText={setAiInput}
-                    onSubmitEditing={handleAiParse}
-                    returnKeyType="done"
-                    editable={!isAiParsing}
-                  />
-                  <TouchableOpacity
-                    style={[
-                      styles.aiActionBtn,
-                      {
-                        backgroundColor: colors.primary,
-                        opacity: isAiParsing || !aiInput.trim() ? 0.6 : 1
-                      }
-                    ]}
-                    onPress={handleAiParse}
-                    disabled={isAiParsing || !aiInput.trim()}
-                  >
-                    <Ionicons
-                      name={isAiParsing ? 'hourglass-outline' : 'flash'}
-                      size={13}
-                      color="#22160F"
-                    />
-                    <Text style={styles.aiActionBtnText}>{isAiParsing ? '...' : 'Auto-Fill'}</Text>
-                  </TouchableOpacity>
-                </View>
-
-                {aiFeedback && (
-                  <Text
-                    style={[
-                      styles.aiFeedbackText,
-                      { color: aiFeedback.ok ? colors.income : colors.expense }
-                    ]}
-                    numberOfLines={2}
-                  >
-                    {aiFeedback.msg}
-                  </Text>
-                )}
-              </View>
-            )}
-
             {/* Field 1: Name (Full Width Box) */}
             <View style={styles.inputGroup}>
               <Text style={[styles.inputLabel, { color: colors.textSecondary }]}>EXPENSE NAME</Text>
@@ -650,67 +551,5 @@ const styles = StyleSheet.create({
   secondaryCancelBtnText: {
     fontSize: 13,
     fontWeight: '700'
-  },
-  aiCard: {
-    padding: 10,
-    borderRadius: 14,
-    borderWidth: 1,
-    marginBottom: 14
-  },
-  aiHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 8
-  },
-  aiTag: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8D1CC',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 8,
-    gap: 4
-  },
-  aiTagText: {
-    fontSize: 10,
-    fontWeight: '900',
-    color: '#22160F'
-  },
-  aiHintText: {
-    fontSize: 10,
-    fontWeight: '600'
-  },
-  aiInputRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 10,
-    paddingHorizontal: 8,
-    paddingVertical: 4
-  },
-  aiTextInput: {
-    flex: 1,
-    fontSize: 12,
-    fontWeight: '600',
-    paddingVertical: 4
-  },
-  aiActionBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 8,
-    gap: 4
-  },
-  aiActionBtnText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: '#22160F'
-  },
-  aiFeedbackText: {
-    fontSize: 11,
-    fontWeight: '700',
-    marginTop: 6,
-    paddingHorizontal: 2
   }
 });
