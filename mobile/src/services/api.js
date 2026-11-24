@@ -202,8 +202,8 @@ class ApiService {
         token: 'demo-jwt-token-active',
         user: {
           id: 'demo-user-id',
-          name: body.name || 'Demo Trainee',
-          email: body.email || 'demo@budget.com'
+          name: body.name || 'arman',
+          email: body.email || 'arman@budgettracker.com'
         }
       };
     }

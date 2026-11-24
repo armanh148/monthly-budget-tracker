@@ -20,18 +20,26 @@ export default function AuthScreen() {
   const colors = palette[themeMode] || palette.light;
 
   const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('arman');
+  const [email, setEmail] = useState('arman');
+  const [password, setPassword] = useState('arman05');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [showServerConfig, setShowServerConfig] = useState(false);
 
+  const normalizeEmail = (val) => {
+    const trimmed = (val || '').trim();
+    if (trimmed && !trimmed.includes('@')) {
+      return `${trimmed}@budgettracker.com`;
+    }
+    return trimmed;
+  };
+
   const handleSubmit = async () => {
     setErrorMsg('');
     if (!email.trim() || !password) {
-      setErrorMsg('Please enter both email and password.');
+      setErrorMsg('Please enter both username/email and password.');
       return;
     }
 
@@ -42,10 +50,11 @@ export default function AuthScreen() {
 
     setIsLoading(true);
     try {
+      const resolvedEmail = normalizeEmail(email);
       if (isRegister) {
-        await register(name.trim(), email.trim(), password);
+        await register(name.trim(), resolvedEmail, password);
       } else {
-        await login(email.trim(), password);
+        await login(resolvedEmail, password);
       }
     } catch (err) {
       setErrorMsg(err.message || 'Authentication failed. Please check your credentials.');
@@ -55,9 +64,9 @@ export default function AuthScreen() {
   };
 
   const handleFillDemo = () => {
-    setEmail('demo@budgettracker.com');
-    setPassword('password123');
-    if (isRegister) setName('Demo User');
+    setEmail('arman');
+    setPassword('arman05');
+    if (isRegister) setName('arman');
     setErrorMsg('');
   };
 
@@ -210,7 +219,7 @@ export default function AuthScreen() {
 
             <View style={styles.inputGroup}>
               <Text style={[styles.label, { color: colors.text }]}>
-                EMAIL ADDRESS
+                USERNAME / EMAIL
               </Text>
               <View
                 style={[
@@ -222,14 +231,14 @@ export default function AuthScreen() {
                 ]}
               >
                 <Ionicons
-                  name="mail-outline"
+                  name="person-circle-outline"
                   size={17}
                   color={colors.textTertiary}
                   style={styles.fieldIcon}
                 />
                 <TextInput
                   style={[styles.input, { color: colors.text }]}
-                  placeholder="name@example.com"
+                  placeholder="e.g. arman"
                   placeholderTextColor={colors.textTertiary}
                   value={email}
                   onChangeText={setEmail}
@@ -342,7 +351,7 @@ export default function AuthScreen() {
               <Text
                 style={[styles.demoFillText, { color: colors.primaryDark }]}
               >
-                Try Demo Account (demo@budgettracker.com)
+                Quick Login (user: arman | password: arman05)
               </Text>
             </TouchableOpacity>
           </View>
