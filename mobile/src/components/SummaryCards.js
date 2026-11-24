@@ -27,298 +27,239 @@ export default function SummaryCards({
     summary.remaining_balance !== undefined
       ? summary.remaining_balance
       : totalIncome - totalExpense;
-  const burnRate = summary.burn_rate_percent || 0;
+  const burnRate = Math.min(100, Math.max(0, summary.burn_rate_percent || 0));
   const isOverBudget = remainingBalance < 0;
-  const isBudgetAlert = summary.is_budget_alert || burnRate >= 80;
 
-  // Puffy 3D Clay Card palette (Cyber Lime Hero Card)
-  let cardBg = colors.brandCard;
-  let cardShadow = isDark ? '#000000' : colors.cardShadow || '#A2D31E';
-
-  if (isOverBudget) {
-    cardBg = '#D9435E';
-    cardShadow = '#B82C45';
-  } else if (isBudgetAlert) {
-    cardBg = '#D9822B';
-    cardShadow = '#B5661A';
-  }
-
-  const isCustomAlert = isOverBudget || isBudgetAlert;
-  const cardTextColor = isCustomAlert ? '#FFFFFF' : colors.brandCardText || '#FFFFFF';
-  const cardMutedColor = isCustomAlert ? 'rgba(255, 255, 255, 0.82)' : 'rgba(255, 255, 255, 0.85)';
-  const cardStripBg = 'rgba(0, 0, 0, 0.22)';
+  const cardBg = isDark ? '#080E1E' : '#0A192F';
+  const cardBorder = isOverBudget ? 'rgba(220, 38, 38, 0.7)' : 'rgba(59, 130, 246, 0.35)';
 
   return (
     <View style={styles.wrapper}>
-      {/* Curved Violet Clay Backdrop Behind Top Half of Floating Card */}
+      {/* Background Top Curved Wash */}
       <View style={[styles.curvedBackdrop, { backgroundColor: colors.topBackdrop }]} />
 
       <View style={styles.container}>
-        {/* 1. Hyper-Realistic Physical Metal Executive Card */}
-        <View
-          style={[
-            styles.physicalCard,
-            {
-              backgroundColor: cardBg,
-              shadowColor: cardShadow
-            }
-          ]}
-        >
-          {/* Real Metallic Chamfered Edges (Top & Left Specular Reflection, Bottom & Right Bevel) */}
-          <View style={styles.cardEdgeHighlightTop} />
-          <View style={styles.cardEdgeHighlightLeft} />
-          <View style={styles.cardEdgeBevelBottom} />
+        {/* 1. Custom Cyber Executive Portfolio Card */}
+        <View style={[styles.portfolioCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
+          {/* Subtle Ambient Background Glows */}
+          <View style={styles.ambientGlowBlue} />
+          <View style={styles.ambientGlowRed} />
 
-          {/* Diagonal Brushed Metallic Light Sheen Beam */}
-          <View style={styles.specularLightBeam} />
-          <View style={styles.specularSecondarySheen} />
-
-          {/* Warm Ambient Corner Glow */}
-          <View style={styles.cardAmbientGlow} />
-
-          {/* Row 1: Issuer Brand Crest & Luxury Badges */}
-          <View style={styles.cardTopRow}>
-            <View style={styles.issuerBadgeWrap}>
-              <View style={styles.issuerIconPill}>
-                <Ionicons name="diamond" size={13} color="#93C5FD" />
+          {/* Card Top Row: Brand & Live Status */}
+          <View style={styles.cardHeader}>
+            <View style={styles.brandRow}>
+              <View style={styles.emblemBadge}>
+                <Ionicons name="wallet" size={16} color="#60A5FA" />
               </View>
-              <Text style={styles.issuerTitle}>NAVY VAULT</Text>
+              <View>
+                <Text style={styles.brandTitle}>
+                  {(user?.name || 'ARMAN').toUpperCase()} PORTFOLIO
+                </Text>
+                <Text style={styles.brandSubtitle}>Capital Vault</Text>
+              </View>
             </View>
 
-            <View style={styles.topRightBadges}>
-              <View style={styles.nfcWaveBadge}>
+            <View style={styles.liveBadge}>
+              <View
+                style={[
+                  styles.liveDot,
+                  { backgroundColor: isOverBudget ? '#EF4444' : '#22C55E' }
+                ]}
+              />
+              <Text style={styles.liveText}>{isOverBudget ? 'DEFICIT' : 'ACTIVE'}</Text>
+            </View>
+          </View>
+
+          {/* Hero Balance Block */}
+          <View style={styles.heroBalanceSection}>
+            <View style={styles.balanceHeaderRow}>
+              <Text style={styles.balanceLabel}>NET AVAILABLE BALANCE</Text>
+              <View
+                style={[
+                  styles.marginTag,
+                  {
+                    backgroundColor: isOverBudget
+                      ? 'rgba(220, 38, 38, 0.25)'
+                      : 'rgba(34, 197, 94, 0.2)'
+                  }
+                ]}
+              >
                 <Ionicons
-                  name="wifi"
-                  size={15}
-                  color="#FFFFFF"
-                  style={{ transform: [{ rotate: '90deg' }] }}
+                  name={isOverBudget ? 'trending-down' : 'trending-up'}
+                  size={12}
+                  color={isOverBudget ? '#F87171' : '#4ADE80'}
+                />
+                <Text
+                  style={[
+                    styles.marginTagText,
+                    { color: isOverBudget ? '#F87171' : '#4ADE80' }
+                  ]}
+                >
+                  {isOverBudget ? 'Exceeded' : `${Math.max(0, 100 - Math.round(burnRate))}% Safe`}
+                </Text>
+              </View>
+            </View>
+
+            <Text style={styles.mainBalanceText} numberOfLines={1} adjustsFontSizeToFit>
+              {formatCurrency(remainingBalance)}
+            </Text>
+
+            {/* Budget Progress Meter */}
+            <View style={styles.budgetTrackWrap}>
+              <View style={styles.budgetTrackBg}>
+                <View
+                  style={[
+                    styles.budgetTrackFill,
+                    {
+                      width: `${burnRate}%`,
+                      backgroundColor: isOverBudget
+                        ? '#EF4444'
+                        : burnRate > 75
+                          ? '#F59E0B'
+                          : '#3B82F6'
+                    }
+                  ]}
                 />
               </View>
-              <View style={styles.platinumMetalPill}>
-                <Text style={styles.platinumMetalText}>METAL</Text>
+              <View style={styles.budgetTrackLabels}>
+                <Text style={styles.budgetTrackMeta}>Used: {Math.round(burnRate)}%</Text>
+                <Text style={styles.budgetTrackMeta}>Limit: 100%</Text>
               </View>
             </View>
           </View>
 
-          {/* Row 2: Hyper-Realistic ISO EMV Smart Chip & Contactless */}
-          <View style={styles.chipAndBalanceRow}>
-            {/* The Realistic Metallic EMV Chip */}
-            <View style={styles.realisticEmvChip}>
-              {/* Chip Metallic Highlight Glare */}
-              <View style={styles.chipGlareDot} />
-
-              {/* Top Contact Pads */}
-              <View style={styles.chipPadRow}>
-                <View style={[styles.chipPad, styles.chipPadTopLeft]} />
-                <View style={[styles.chipPad, styles.chipPadTopCenter]} />
-                <View style={[styles.chipPad, styles.chipPadTopRight]} />
-              </View>
-
-              {/* Middle Core Contact Pad */}
-              <View style={styles.chipPadRow}>
-                <View style={[styles.chipPad, styles.chipPadMidLeft]} />
-                <View style={styles.chipCenterCore}>
-                  <View style={styles.chipCoreInnerDot} />
-                </View>
-                <View style={[styles.chipPad, styles.chipPadMidRight]} />
-              </View>
-
-              {/* Bottom Contact Pads */}
-              <View style={styles.chipPadRow}>
-                <View style={[styles.chipPad, styles.chipPadBottomLeft]} />
-                <View style={[styles.chipPad, styles.chipPadBottomCenter]} />
-                <View style={[styles.chipPad, styles.chipPadBottomRight]} />
-              </View>
-
-              {/* Laser-Etched Hairline Isolation Grooves */}
-              <View style={styles.chipHorizontalGroove} />
-              <View style={styles.chipVerticalGrooveLeft} />
-              <View style={styles.chipVerticalGrooveRight} />
-            </View>
-
-            {/* Prominent Balance Display */}
-            <View style={styles.balanceContainer}>
-              <Text style={[styles.balanceOverline, { color: cardMutedColor }]}>TOTAL BALANCE</Text>
-              <Text
-                style={[styles.balanceFigure, { color: cardTextColor }]}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-              >
-                {formatCurrency(remainingBalance)}
-              </Text>
-            </View>
-          </View>
-
-          {/* Row 3: Laser-Etched Stamped Card Digits */}
-          <View style={styles.embossedDigitsRow}>
-            <Text style={styles.embossedDigits}>
-              •••• •••• •••• <Text style={styles.digitsHighlight}>3432</Text>
-            </Text>
-          </View>
-
-          {/* Row 4: Cardholder Name, Expiry, and Authentic Mastercard Hologram */}
-          <View style={styles.cardFooterDetails}>
-            <View style={styles.cardholderBlock}>
-              <Text style={[styles.cardMetaLabel, { color: cardMutedColor }]}>CARDHOLDER</Text>
-              <Text style={[styles.cardMetaValue, { color: cardTextColor }]} numberOfLines={1}>
-                {(user?.name || 'DEMO USER').toUpperCase()}
-              </Text>
-            </View>
-
-            <View style={styles.expiryBlock}>
-              <Text style={[styles.cardMetaLabel, { color: cardMutedColor }]}>VALID THRU</Text>
-              <Text style={[styles.cardMetaValue, { color: cardTextColor }]}>12/28</Text>
-            </View>
-
-            {/* Authentic Interlocking Mastercard Brand Mark */}
-            <View style={styles.mastercardBrandWrap}>
-              <View style={styles.mastercardCircles}>
-                <View style={[styles.mcCircleReal, styles.mcRed]} />
-                <View style={[styles.mcCircleReal, styles.mcYellow]} />
-                {/* Overlapping Amber Lens */}
-                <View style={styles.mcIntersectionLens} />
-              </View>
-              <Text style={styles.mcWordmark}>mastercard</Text>
-            </View>
-          </View>
-
-          {/* Row 5: Precision Smoked Glass Metrics Strip */}
-          <View
-            style={[
-              styles.metricsStrip,
-              {
-                backgroundColor: cardStripBg,
-                borderColor: 'rgba(255, 255, 255, 0.22)'
-              }
-            ]}
-          >
+          {/* Dual Inflow & Outflow Interactive Cards */}
+          <View style={styles.dualStatsGrid}>
+            {/* Income Capsule */}
             <TouchableOpacity
-              style={styles.metricHalf}
+              style={[styles.statCapsule, styles.incomeCapsule]}
               onPress={onOpenSetIncome}
-              activeOpacity={0.8}
+              activeOpacity={0.82}
             >
-              <View style={styles.metricTitleRow}>
-                <View style={[styles.metricDot, { backgroundColor: '#3B82F6' }]} />
-                <Text style={[styles.metricOverline, { color: cardMutedColor }]}>INCOME</Text>
+              <View style={styles.statTop}>
+                <View style={styles.statIconBadgeIncome}>
+                  <Ionicons name="arrow-up" size={13} color="#60A5FA" />
+                </View>
+                <Text style={styles.statCapsuleLabel}>TOTAL INCOME</Text>
               </View>
-              <Text style={[styles.metricVal, { color: cardTextColor }]}>
+              <Text style={styles.statAmountIncome} numberOfLines={1}>
                 {formatCurrency(totalIncome)}
               </Text>
+              <Text style={styles.statActionHint}>Tap to Edit Inflow →</Text>
             </TouchableOpacity>
 
-            <View
-              style={[
-                styles.metricDivider,
-                {
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)'
-                }
-              ]}
-            />
-
+            {/* Expense Capsule */}
             <TouchableOpacity
-              style={styles.metricHalf}
+              style={[styles.statCapsule, styles.expenseCapsule]}
               onPress={onOpenAddExpense}
-              activeOpacity={0.8}
+              activeOpacity={0.82}
             >
-              <View style={styles.metricTitleRow}>
-                <View style={[styles.metricDot, { backgroundColor: '#EF4444' }]} />
-                <Text style={[styles.metricOverline, { color: cardMutedColor }]}>EXPENSES</Text>
+              <View style={styles.statTop}>
+                <View style={styles.statIconBadgeExpense}>
+                  <Ionicons name="arrow-down" size={13} color="#F87171" />
+                </View>
+                <Text style={styles.statCapsuleLabel}>TOTAL EXPENSE</Text>
               </View>
-              <Text style={[styles.metricVal, { color: cardTextColor }]}>
+              <Text style={styles.statAmountExpense} numberOfLines={1}>
                 {formatCurrency(totalExpense)}
               </Text>
+              <Text style={styles.statActionHintExpense}>+ Add Expense →</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {/* 2. Four Executive Sunset Action Tiles */}
-        <View style={styles.tilesGrid}>
-          {/* Tile 1: Sunset Gold (Income) */}
+        {/* 2. Modern 2x2 Tactical Action Cards Grid */}
+        <View style={styles.actionPillsGrid}>
+          {/* Action 1: Set Income */}
           <TouchableOpacity
-            style={styles.tileCol}
+            style={[
+              styles.actionPillBtn,
+              {
+                backgroundColor: isDark ? '#0A152E' : '#FFFFFF',
+                borderColor: 'rgba(37, 99, 235, 0.28)'
+              }
+            ]}
             onPress={onOpenSetIncome}
-            activeOpacity={0.7}
-            accessibilityLabel="Set Monthly Income"
+            activeOpacity={0.8}
           >
-            <View
-              style={[
-                styles.clayTile,
-                {
-                  backgroundColor: colors.tileMint,
-                  shadowColor: colors.tileMint
-                }
-              ]}
-            >
-              <View style={styles.tileSheen} />
-              <Ionicons name="wallet" size={26} color={colors.tileMintText || '#FFFFFF'} />
+            <View style={[styles.actionIconWrap, { backgroundColor: '#1E3A8A' }]}>
+              <Ionicons name="add-circle" size={20} color="#FFFFFF" />
             </View>
-            <Text style={[styles.tileLabel, { color: colors.text }]}>Income</Text>
+            <View style={styles.actionTextCol}>
+              <Text style={[styles.actionPillTitle, { color: colors.text }]}>Set Income</Text>
+              <Text style={[styles.actionPillSubtitle, { color: colors.textSecondary }]}>
+                Monthly Target
+              </Text>
+            </View>
           </TouchableOpacity>
 
-          {/* Tile 2: Sunset Tangerine (Expense) */}
+          {/* Action 2: Add Expense */}
           <TouchableOpacity
-            style={styles.tileCol}
+            style={[
+              styles.actionPillBtn,
+              {
+                backgroundColor: isDark ? '#1F0B10' : '#FFFFFF',
+                borderColor: 'rgba(220, 38, 38, 0.28)'
+              }
+            ]}
             onPress={onOpenAddExpense}
-            activeOpacity={0.7}
-            accessibilityLabel="Add Expense"
+            activeOpacity={0.8}
           >
-            <View
-              style={[
-                styles.clayTile,
-                {
-                  backgroundColor: colors.tileCoral,
-                  shadowColor: colors.tileCoral
-                }
-              ]}
-            >
-              <View style={styles.tileSheen} />
-              <Ionicons name="receipt" size={26} color={colors.tileCoralText || '#FFFFFF'} />
+            <View style={[styles.actionIconWrap, { backgroundColor: '#DC2626' }]}>
+              <Ionicons name="remove-circle" size={20} color="#FFFFFF" />
             </View>
-            <Text style={[styles.tileLabel, { color: colors.text }]}>Expense</Text>
+            <View style={styles.actionTextCol}>
+              <Text style={[styles.actionPillTitle, { color: colors.text }]}>Add Expense</Text>
+              <Text style={[styles.actionPillSubtitle, { color: colors.textSecondary }]}>
+                Record Outflow
+              </Text>
+            </View>
           </TouchableOpacity>
 
-          {/* Tile 3: Amber Mandarin (Analytics) */}
+          {/* Action 3: Analytics */}
           <TouchableOpacity
-            style={styles.tileCol}
+            style={[
+              styles.actionPillBtn,
+              {
+                backgroundColor: isDark ? '#0F172A' : '#FFFFFF',
+                borderColor: 'rgba(71, 85, 105, 0.25)'
+              }
+            ]}
             onPress={onToggleCategoryBreakdown}
-            activeOpacity={0.7}
-            accessibilityLabel="View Analytics"
+            activeOpacity={0.8}
           >
-            <View
-              style={[
-                styles.clayTile,
-                {
-                  backgroundColor: colors.tileViolet,
-                  shadowColor: colors.tileViolet
-                }
-              ]}
-            >
-              <View style={styles.tileSheen} />
-              <Ionicons name="bar-chart" size={26} color={colors.tileVioletText || '#FFFFFF'} />
+            <View style={[styles.actionIconWrap, { backgroundColor: '#0A192F' }]}>
+              <Ionicons name="pie-chart" size={20} color="#FFFFFF" />
             </View>
-            <Text style={[styles.tileLabel, { color: colors.text }]}>Analytics</Text>
+            <View style={styles.actionTextCol}>
+              <Text style={[styles.actionPillTitle, { color: colors.text }]}>Analytics</Text>
+              <Text style={[styles.actionPillSubtitle, { color: colors.textSecondary }]}>
+                Category Charts
+              </Text>
+            </View>
           </TouchableOpacity>
 
-          {/* Tile 4: Espresso Slate (Statement) */}
+          {/* Action 4: Statement */}
           <TouchableOpacity
-            style={styles.tileCol}
+            style={[
+              styles.actionPillBtn,
+              {
+                backgroundColor: isDark ? '#050811' : '#FFFFFF',
+                borderColor: 'rgba(15, 23, 42, 0.25)'
+              }
+            ]}
             onPress={onOpenExport}
-            activeOpacity={0.7}
-            accessibilityLabel="Export Statement"
+            activeOpacity={0.8}
           >
-            <View
-              style={[
-                styles.clayTile,
-                {
-                  backgroundColor: colors.tileCyan,
-                  shadowColor: colors.tileCyan
-                }
-              ]}
-            >
-              <View style={styles.tileSheen} />
-              <Ionicons name="document-text" size={26} color={colors.tileCyanText || '#FEFFFE'} />
+            <View style={[styles.actionIconWrap, { backgroundColor: '#000000' }]}>
+              <Ionicons name="document-text" size={20} color="#FFFFFF" />
             </View>
-            <Text style={[styles.tileLabel, { color: colors.text }]}>Statement</Text>
+            <View style={styles.actionTextCol}>
+              <Text style={[styles.actionPillTitle, { color: colors.text }]}>Statement</Text>
+              <Text style={[styles.actionPillSubtitle, { color: colors.textSecondary }]}>
+                Export PDF / CSV
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
@@ -329,435 +270,274 @@ export default function SummaryCards({
 const styles = StyleSheet.create({
   wrapper: {
     position: 'relative',
-    paddingBottom: 6
+    paddingBottom: 8
   },
   curvedBackdrop: {
     position: 'absolute',
     top: -10,
     left: 0,
     right: 0,
-    height: 126,
-    borderBottomLeftRadius: 44,
-    borderBottomRightRadius: 44
+    height: 130,
+    borderBottomLeftRadius: 36,
+    borderBottomRightRadius: 36
   },
   container: {
     paddingHorizontal: 20,
-    paddingTop: 6
+    paddingTop: 4
   },
-
-  // 1. Hyper-Realistic Physical Metal Card
-  physicalCard: {
-    borderRadius: 22,
-    paddingHorizontal: 22,
-    paddingTop: 20,
-    paddingBottom: 16,
+  portfolioCard: {
+    borderRadius: 24,
+    padding: 20,
     borderWidth: 1.5,
-    borderTopColor: 'rgba(255, 255, 255, 0.65)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.4)',
-    borderRightColor: 'rgba(0, 0, 0, 0.35)',
-    borderBottomColor: 'rgba(0, 0, 0, 0.45)',
-    shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: 0.38,
-    shadowRadius: 22,
-    elevation: 10,
+    shadowColor: '#0A192F',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.35,
+    shadowRadius: 20,
+    elevation: 8,
     position: 'relative',
     overflow: 'hidden'
   },
-  cardEdgeHighlightTop: {
+  ambientGlowBlue: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 2,
-    backgroundColor: 'rgba(255, 255, 255, 0.55)'
+    top: -40,
+    right: -40,
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    backgroundColor: 'rgba(37, 99, 235, 0.18)'
   },
-  cardEdgeHighlightLeft: {
+  ambientGlowRed: {
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    width: 1.5,
-    backgroundColor: 'rgba(255, 255, 255, 0.3)'
+    bottom: -40,
+    left: -40,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'rgba(220, 38, 38, 0.12)'
   },
-  cardEdgeBevelBottom: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 2,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)'
-  },
-  specularLightBeam: {
-    position: 'absolute',
-    top: -60,
-    left: -30,
-    width: 220,
-    height: 420,
-    backgroundColor: 'rgba(255, 255, 255, 0.09)',
-    transform: [{ rotate: '-32deg' }]
-  },
-  specularSecondarySheen: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 70,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)'
-  },
-  cardAmbientGlow: {
-    position: 'absolute',
-    bottom: -50,
-    right: -30,
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: 'rgba(37, 99, 235, 0.22)'
-  },
-
-  // Row 1: Top Issuer Row
-  cardTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 14
-  },
-  issuerBadgeWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7
-  },
-  issuerIconPill: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    backgroundColor: 'rgba(0, 0, 0, 0.28)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.45)',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  issuerTitle: {
-    fontSize: 11,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    letterSpacing: 2
-  },
-  topRightBadges: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8
-  },
-  nfcWaveBadge: {
-    opacity: 0.9
-  },
-  platinumMetalPill: {
-    paddingHorizontal: 8,
-    paddingVertical: 2.5,
-    borderRadius: 6,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.45)'
-  },
-  platinumMetalText: {
-    fontSize: 9,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    letterSpacing: 1.5
-  },
-
-  // Row 2: Hyper-Realistic EMV Chip & Balance
-  chipAndBalanceRow: {
+  cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 16
   },
-  realisticEmvChip: {
-    width: 46,
-    height: 35,
-    borderRadius: 7,
-    backgroundColor: '#D4A017',
-    borderWidth: 1.2,
-    borderColor: '#FFEAA7',
-    position: 'relative',
-    overflow: 'hidden',
-    justifyContent: 'space-between',
-    padding: 1.5,
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.35,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  chipGlareDot: {
-    position: 'absolute',
-    top: 1,
-    left: 1,
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)'
-  },
-  chipPadRow: {
+  brandRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 9.5
+    gap: 10
   },
-  chipPad: {
-    backgroundColor: '#E5A93C',
-    flex: 1,
-    marginHorizontal: 1,
-    height: '100%'
-  },
-  chipPadTopLeft: {
-    borderTopLeftRadius: 4
-  },
-  chipPadTopCenter: {
-    flex: 1.2
-  },
-  chipPadTopRight: {
-    borderTopRightRadius: 4
-  },
-  chipPadMidLeft: {
-    flex: 1
-  },
-  chipCenterCore: {
-    flex: 1.4,
-    height: 9.5,
-    borderRadius: 3,
-    borderWidth: 0.8,
-    borderColor: '#8C590A',
-    backgroundColor: '#D69520',
+  emblemBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    backgroundColor: 'rgba(37, 99, 235, 0.25)',
+    borderWidth: 1,
+    borderColor: 'rgba(96, 165, 250, 0.4)',
     alignItems: 'center',
     justifyContent: 'center'
   },
-  chipCoreInnerDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: 'rgba(255, 234, 167, 0.6)'
+  brandTitle: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '900',
+    letterSpacing: 1.2
   },
-  chipPadMidRight: {
-    flex: 1
-  },
-  chipPadBottomLeft: {
-    borderBottomLeftRadius: 4
-  },
-  chipPadBottomCenter: {
-    flex: 1.2
-  },
-  chipPadBottomRight: {
-    borderBottomRightRadius: 4
-  },
-  chipHorizontalGroove: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    height: 0.8,
-    backgroundColor: '#784B05'
-  },
-  chipVerticalGrooveLeft: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 14,
-    width: 0.8,
-    backgroundColor: '#784B05'
-  },
-  chipVerticalGrooveRight: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    right: 14,
-    width: 0.8,
-    backgroundColor: '#784B05'
-  },
-
-  balanceContainer: {
-    alignItems: 'flex-end'
-  },
-  balanceOverline: {
+  brandSubtitle: {
+    color: '#94A3B8',
     fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1.2,
-    marginBottom: 2
+    fontWeight: '600',
+    marginTop: 1
   },
-  balanceFigure: {
-    fontSize: 27,
-    fontWeight: '900',
-    letterSpacing: -0.5
-  },
-
-  // Row 3: Embossed Digits
-  embossedDigitsRow: {
-    marginBottom: 16
-  },
-  embossedDigits: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '800',
-    letterSpacing: 3.5,
-    textShadowColor: 'rgba(0, 0, 0, 0.45)',
-    textShadowOffset: { width: 0, height: 1.5 },
-    textShadowRadius: 1
-  },
-  digitsHighlight: {
-    color: '#93C5FD'
-  },
-
-  // Row 4: Footer Meta & Mastercard
-  cardFooterDetails: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    marginBottom: 14
-  },
-  cardholderBlock: {
-    flex: 1.4
-  },
-  expiryBlock: {
-    flex: 0.9
-  },
-  cardMetaLabel: {
-    fontSize: 9,
-    fontWeight: '700',
-    letterSpacing: 1,
-    marginBottom: 3
-  },
-  cardMetaValue: {
-    fontSize: 13,
-    fontWeight: '800',
-    letterSpacing: 0.8,
-    textShadowColor: 'rgba(0, 0, 0, 0.35)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 1
-  },
-  mastercardBrandWrap: {
-    alignItems: 'center',
-    paddingTop: 2
-  },
-  mastercardCircles: {
+  liveBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    position: 'relative',
-    width: 38,
-    height: 24
-  },
-  mcCircleReal: {
-    width: 24,
-    height: 24,
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: 12,
-    position: 'absolute'
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.18)'
   },
-  mcRed: {
-    left: 0,
-    backgroundColor: '#EB001B'
-  },
-  mcYellow: {
-    right: 0,
-    backgroundColor: '#F79E1B'
-  },
-  mcIntersectionLens: {
-    position: 'absolute',
-    left: 11,
-    width: 16,
-    height: 24,
-    backgroundColor: 'rgba(255, 95, 0, 0.85)',
-    borderRadius: 8
-  },
-  mcWordmark: {
-    fontSize: 7.5,
-    fontWeight: '800',
-    color: '#FFFFFF',
-    letterSpacing: 0.5,
-    marginTop: 2
-  },
-
-  // Row 5: Precision Smoked Glass Metrics Strip
-  metricsStrip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.28)',
-    borderRadius: 14,
-    paddingVertical: 9,
-    paddingHorizontal: 14,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 255, 255, 0.28)'
-  },
-  metricHalf: {
-    flex: 1
-  },
-  metricTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    marginBottom: 2
-  },
-  metricDot: {
+  liveDot: {
     width: 6,
     height: 6,
     borderRadius: 3
   },
-  metricOverline: {
-    color: 'rgba(255, 255, 255, 0.78)',
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 0.6
-  },
-  metricVal: {
+  liveText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '900'
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.8
   },
-  metricDivider: {
-    width: 1,
-    height: 26,
-    backgroundColor: 'rgba(255, 255, 255, 0.22)',
-    marginHorizontal: 12
+  heroBalanceSection: {
+    marginBottom: 18
   },
-
-  // 4 Action Tiles
-  tilesGrid: {
+  balanceHeaderRow: {
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 22,
-    marginBottom: 6
+    marginBottom: 4
   },
-  tileCol: {
-    alignItems: 'center',
-    flex: 1
+  balanceLabel: {
+    color: '#94A3B8',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.2
   },
-  clayTile: {
-    width: 56,
-    height: 56,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.25)',
+  marginTag: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 4,
-    position: 'relative',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 2.5,
+    borderRadius: 8
+  },
+  marginTagText: {
+    fontSize: 10,
+    fontWeight: '800'
+  },
+  mainBalanceText: {
+    color: '#FFFFFF',
+    fontSize: 32,
+    fontWeight: '900',
+    letterSpacing: -0.6,
+    marginVertical: 4
+  },
+  budgetTrackWrap: {
+    marginTop: 8
+  },
+  budgetTrackBg: {
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.12)',
     overflow: 'hidden'
   },
-  tileSheen: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 18,
-    backgroundColor: 'rgba(255, 255, 255, 0.22)',
-    borderTopLeftRadius: 18,
-    borderTopRightRadius: 18
+  budgetTrackFill: {
+    height: '100%',
+    borderRadius: 3
   },
-  tileLabel: {
-    fontSize: 12,
+  budgetTrackLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 4
+  },
+  budgetTrackMeta: {
+    color: '#94A3B8',
+    fontSize: 10,
+    fontWeight: '700'
+  },
+  dualStatsGrid: {
+    flexDirection: 'row',
+    gap: 12
+  },
+  statCapsule: {
+    flex: 1,
+    padding: 12,
+    borderRadius: 16,
+    borderWidth: 1
+  },
+  incomeCapsule: {
+    backgroundColor: 'rgba(30, 58, 138, 0.35)',
+    borderColor: 'rgba(59, 130, 246, 0.4)'
+  },
+  expenseCapsule: {
+    backgroundColor: 'rgba(220, 38, 38, 0.25)',
+    borderColor: 'rgba(239, 68, 68, 0.4)'
+  },
+  statTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4
+  },
+  statIconBadgeIncome: {
+    width: 20,
+    height: 20,
+    borderRadius: 6,
+    backgroundColor: 'rgba(37, 99, 235, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  statIconBadgeExpense: {
+    width: 20,
+    height: 20,
+    borderRadius: 6,
+    backgroundColor: 'rgba(220, 38, 38, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  statCapsuleLabel: {
+    color: '#CBD5E1',
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.8
+  },
+  statAmountIncome: {
+    color: '#60A5FA',
+    fontSize: 16,
+    fontWeight: '900',
+    letterSpacing: -0.3
+  },
+  statAmountExpense: {
+    color: '#F87171',
+    fontSize: 16,
+    fontWeight: '900',
+    letterSpacing: -0.3
+  },
+  statActionHint: {
+    color: '#93C5FD',
+    fontSize: 9,
     fontWeight: '700',
-    marginTop: 8,
-    letterSpacing: 0.1
+    marginTop: 4,
+    opacity: 0.8
+  },
+  statActionHintExpense: {
+    color: '#FCA5A5',
+    fontSize: 9,
+    fontWeight: '700',
+    marginTop: 4,
+    opacity: 0.8
+  },
+  actionPillsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginTop: 14
+  },
+  actionPillBtn: {
+    width: '48.5%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+    borderWidth: 1,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3
+  },
+  actionIconWrap: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  actionTextCol: {
+    flex: 1
+  },
+  actionPillTitle: {
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: -0.2
+  },
+  actionPillSubtitle: {
+    fontSize: 10,
+    fontWeight: '600',
+    marginTop: 1
   }
 });

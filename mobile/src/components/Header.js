@@ -28,43 +28,44 @@ export default function Header({ onOpenSettings }) {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.topBackdrop }]}>
-      {/* Center: Executive Frosted Month Capsule */}
-      <View
-        style={[
-          styles.monthCapsule,
-          { backgroundColor: colors.surfaceSubtle, borderColor: colors.border }
-        ]}
-      >
-        <TouchableOpacity
-          onPress={prevMonth}
-          style={styles.chevronTouch}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          accessibilityLabel="Previous month"
-        >
-          <Ionicons name="chevron-back" size={16} color={colors.primary} />
-        </TouchableOpacity>
-
-        <Text style={[styles.monthText, { color: colors.text }]}>
-          {MONTH_NAMES[selectedMonth - 1]} {selectedYear}
+      {/* Left: Personalized Greeting */}
+      <View style={styles.userGreetingWrap}>
+        <Text style={styles.greetingMini}>WELCOME BACK</Text>
+        <Text style={styles.greetingName} numberOfLines={1}>
+          {user?.name || 'Arman'}
         </Text>
-
-        <TouchableOpacity
-          onPress={nextMonth}
-          style={styles.chevronTouch}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          accessibilityLabel="Next month"
-        >
-          <Ionicons name="chevron-forward" size={16} color={colors.primary} />
-        </TouchableOpacity>
       </View>
 
-      {/* Right: Theme Toggle & Glossy Avatar */}
+      {/* Right: Month Selector, Theme Toggle & Avatar */}
       <View style={styles.rightGroup}>
+        {/* Compact Modern Month Capsule */}
+        <View style={styles.monthCapsule}>
+          <TouchableOpacity
+            onPress={prevMonth}
+            style={styles.chevronTouch}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            accessibilityLabel="Previous month"
+          >
+            <Ionicons name="chevron-back" size={14} color="#93C5FD" />
+          </TouchableOpacity>
+
+          <Text style={styles.monthText}>
+            {MONTH_NAMES[selectedMonth - 1]?.slice(0, 3)} {selectedYear}
+          </Text>
+
+          <TouchableOpacity
+            onPress={nextMonth}
+            style={styles.chevronTouch}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            accessibilityLabel="Next month"
+          >
+            <Ionicons name="chevron-forward" size={14} color="#93C5FD" />
+          </TouchableOpacity>
+        </View>
+
+        {/* Theme Toggle Button */}
         <TouchableOpacity
-          style={[
-            styles.frostedClayBtnSmall,
-            { backgroundColor: colors.primary, borderColor: colors.primary }
-          ]}
+          style={styles.frostedBtn}
           onPress={toggleTheme}
           activeOpacity={0.8}
           accessibilityLabel="Toggle Theme"
@@ -72,15 +73,16 @@ export default function Header({ onOpenSettings }) {
           <Ionicons name={isDark ? 'sunny' : 'moon'} size={15} color="#FFFFFF" />
         </TouchableOpacity>
 
+        {/* User Avatar */}
         <TouchableOpacity
           onPress={onOpenSettings}
-          style={[styles.avatarRing, { backgroundColor: colors.surface }]}
+          style={styles.avatarRing}
           activeOpacity={0.85}
-          accessibilityLabel="Account & Security Settings"
+          accessibilityLabel="Account Settings"
         >
-          <View style={[styles.avatarInner, { backgroundColor: colors.primary }]}>
-            <Text style={[styles.avatarText, { color: colors.primaryText || '#0D1117' }]}>
-              {(user?.name || 'U').charAt(0).toUpperCase()}
+          <View style={styles.avatarInner}>
+            <Text style={styles.avatarText}>
+              {(user?.name || 'A').charAt(0).toUpperCase()}
             </Text>
           </View>
         </TouchableOpacity>
@@ -95,78 +97,79 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 12
+    paddingTop: 12,
+    paddingBottom: 14
   },
-  frostedClayBtn: {
-    width: 38,
-    height: 38,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
-    alignItems: 'center',
+  userGreetingWrap: {
     justifyContent: 'center'
   },
-  frostedClayBtnSmall: {
-    width: 36,
-    height: 36,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  monthCapsule: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.18)',
-    gap: 8
-  },
-  chevronTouch: {
-    padding: 6
-  },
-  monthText: {
-    color: '#FFFFFF',
-    fontSize: 13,
+  greetingMini: {
+    color: '#94A3B8',
+    fontSize: 10,
     fontWeight: '800',
-    letterSpacing: -0.1
+    letterSpacing: 1
+  },
+  greetingName: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: '900',
+    letterSpacing: -0.3,
+    marginTop: 1
   },
   rightGroup: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8
   },
-  avatarRing: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    backgroundColor: '#FFFFFF',
-    padding: 2,
+  monthCapsule: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderWidth: 1,
-    borderColor: 'rgba(30, 58, 138, 0.35)',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-    elevation: 3
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+    gap: 6
+  },
+  chevronTouch: {
+    padding: 4
+  },
+  monthText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: -0.1
+  },
+  frostedBtn: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.18)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  avatarRing: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#0A192F',
+    padding: 2,
+    borderWidth: 1.5,
+    borderColor: 'rgba(59, 130, 246, 0.6)'
   },
   avatarInner: {
     flex: 1,
-    borderRadius: 17,
-    backgroundColor: '#0A192F',
+    borderRadius: 16,
+    backgroundColor: '#1E3A8A',
     alignItems: 'center',
     justifyContent: 'center'
   },
   avatarText: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '900'
   }
 });

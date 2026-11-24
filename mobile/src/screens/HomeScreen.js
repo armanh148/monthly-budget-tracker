@@ -223,15 +223,15 @@ export default function HomeScreen() {
             style={[
               styles.dockCenterBtn,
               {
-                backgroundColor: colors.primary,
-                shadowColor: colors.primary
+                backgroundColor: '#DC2626',
+                shadowColor: '#DC2626'
               }
             ]}
             onPress={() => setShowAddExpense(true)}
             activeOpacity={0.8}
             accessibilityLabel="Add New Expense"
           >
-            <Ionicons name="add" size={28} color={colors.primaryText || '#FFFFFF'} />
+            <Ionicons name="add" size={28} color="#FFFFFF" />
           </TouchableOpacity>
 
           {/* Nav 4: Report */}
@@ -386,21 +386,21 @@ const styles = StyleSheet.create({
   },
   bottomDock: {
     position: 'absolute',
-    bottom: 18,
+    bottom: 20,
     left: 20,
     right: 20,
-    height: 64,
-    borderRadius: 32,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.18)',
+    height: 66,
+    borderRadius: 33,
+    borderWidth: 1.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingHorizontal: 12,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.35,
-    shadowRadius: 16,
-    elevation: 8
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.45,
+    shadowRadius: 20,
+    elevation: 10
   },
   dockItem: {
     width: 52,
