@@ -1,8 +1,7 @@
 {
   "expo": {
     "name": "Budget Tracker",
-    "slug": "shah",
-    "owner": "shah-1100s-team",
+    "slug": "monthly-budget-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,20 +9,20 @@
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0D1117"
+      "backgroundColor": "#0A192F"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.zohair.budgettracker",
+      "bundleIdentifier": "com.arman.budgettracker",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "package": "com.zohair.budgettracker",
+      "package": "com.arman.budgettracker",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#0D1117"
+        "backgroundColor": "#0A192F"
       },
       "permissions": [
         "USE_BIOMETRIC",
@@ -36,26 +35,14 @@
       "favicon": "./assets/icon.png",
       "name": "Budget Tracker",
       "shortName": "Budget",
-      "themeColor": "#0D1117",
-      "backgroundColor": "#0D1117",
+      "themeColor": "#0A192F",
+      "backgroundColor": "#0A192F",
       "display": "standalone",
       "orientation": "portrait"
     },
     "plugins": [
       "expo-font",
-      "expo-status-bar",
-      "expo-updates"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "901c114a-9fb4-460c-93ea-27b88692a3ed"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/901c114a-9fb4-460c-93ea-27b88692a3ed"
-    }
+      "expo-status-bar"
+    ]
   }
 }
