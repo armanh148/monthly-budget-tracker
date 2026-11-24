@@ -19,8 +19,8 @@ A complete full-stack mobile application that allows users to record, track, and
 | **Live Backend API** | `https://monthly-budget-tracker-iphone-app.vercel.app` |
 | **Health Check Endpoint** | `https://monthly-budget-tracker-iphone-app.vercel.app/health` |
 | **Database** | Neon Cloud Serverless PostgreSQL (`sslmode=require`) |
-| **GitHub Repository** | `https://github.com/Zohair313/monthly-budget-tracker-Android-App.git` |
-| **Demo Login Credentials** | **Email**: `demo@budgettracker.com` \| **Password**: `password123` |
+| **GitHub Repository** | `https://github.com/armanh148/monthly-budget-tracker.git` |
+| **Demo Login Credentials** | **User**: `arman` \| **Password**: `arman05` |
 
 ---
 
