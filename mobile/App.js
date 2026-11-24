@@ -8,7 +8,6 @@ import AuthScreen from './src/screens/AuthScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import AnimatedSplashScreen from './src/components/AnimatedSplashScreen';
 import AppLockScreen from './src/components/AppLockScreen';
-import SecurityGuideModal from './src/components/SecurityGuideModal';
 import { palette } from './src/theme/colors';
 
 // Fallback Error Boundary to display runtime errors gracefully
@@ -82,13 +81,6 @@ function RootNavigator() {
       ) : (
         <AuthScreen />
       )}
-
-      {/* Post-Login Instruction Modal: Guide user to set PIN/Face ID or use Settings */}
-      <SecurityGuideModal
-        visible={isAuthenticated && showSecurityGuide && !isLocked && !isSettingUpPin}
-        onSetupNow={startPinSetup}
-        onSkip={dismissSecurityGuide}
-      />
 
       {/* Full-Screen 3D Claymorphism PIN / Face ID Lock Overlay */}
       {isLocked && (
