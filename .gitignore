@@ -8,6 +8,8 @@ node_modules/
 
 # Expo & Builds
 .expo/
+android/
+ios/
 dist/
 web-build/
 *.jks
