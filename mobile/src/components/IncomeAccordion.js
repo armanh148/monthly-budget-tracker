@@ -291,8 +291,10 @@ export default function IncomeAccordion({ isExpanded, onToggle }) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    borderRadius: 24,
-    marginBottom: 14
+    borderRadius: 20,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(37, 99, 235, 0.15)'
   },
   headerTouch: {
     flexDirection: 'row',
@@ -300,7 +302,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: 14,
     paddingHorizontal: 16,
-    minHeight: 78
+    minHeight: 74
   },
   headerLeft: {
     flexDirection: 'row',
@@ -309,20 +311,17 @@ const styles = StyleSheet.create({
     gap: 14
   },
   iconCoin: {
-    width: 50,
-    height: 50,
-    borderRadius: 16,
-    borderTopWidth: 2,
-    borderLeftWidth: 1.5,
-    borderRightWidth: 1,
-    borderBottomWidth: 4,
-    borderRightColor: 'rgba(0, 0, 0, 0.06)',
+    width: 44,
+    height: 44,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
     shadowRadius: 8,
-    elevation: 5
+    elevation: 4
   },
   headerTextGroup: {
     flex: 1

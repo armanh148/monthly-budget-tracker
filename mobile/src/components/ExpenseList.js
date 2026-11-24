@@ -72,13 +72,13 @@ export default function ExpenseList({ onEditExpense, onAddExpense, activeCategor
 
   return (
     <View style={styles.container}>
-      {/* Section Header: "Recent Transactions" */}
+      {/* Section Header: "Transactions Activity" */}
       <View style={styles.headerRow}>
         <View style={styles.titleArea}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Recent Transactions</Text>
-          <View style={[styles.countBadge, { backgroundColor: colors.surfaceSubtle }]}>
-            <Text style={[styles.countBadgeText, { color: colors.textSecondary }]}>
-              {filteredExpenses.length}
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Transactions Activity</Text>
+          <View style={[styles.countBadge, { backgroundColor: 'rgba(37, 99, 235, 0.15)', borderColor: 'rgba(37, 99, 235, 0.3)' }]}>
+            <Text style={[styles.countBadgeText, { color: '#3B82F6' }]}>
+              {filteredExpenses.length} {filteredExpenses.length === 1 ? 'record' : 'records'}
             </Text>
           </View>
         </View>
@@ -94,10 +94,10 @@ export default function ExpenseList({ onEditExpense, onAddExpense, activeCategor
 
           <TouchableOpacity
             onPress={onAddExpense}
-            style={[styles.addBtnPill, { backgroundColor: colors.primary }]}
+            style={[styles.addBtnPill, { backgroundColor: '#DC2626' }]}
           >
-            <Ionicons name="add" size={15} color={colors.primaryText || '#0D1117'} />
-            <Text style={[styles.addBtnText, { color: colors.primaryText || '#0D1117' }]}>Add</Text>
+            <Ionicons name="add" size={15} color="#FFFFFF" />
+            <Text style={styles.addBtnText}>Add</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -152,58 +152,68 @@ export default function ExpenseList({ onEditExpense, onAddExpense, activeCategor
             const iconName = CATEGORY_ICONS[cat] || 'pricetag-outline';
 
             return (
-              <View key={item.id} style={[styles.transactionCard, clayCard]}>
-                {/* Left: Refined Category Icon Badge */}
+              <View
+                key={item.id}
+                style={[
+                  styles.transactionCard,
+                  {
+                    backgroundColor: colors.surface || '#0A192F',
+                    borderColor: 'rgba(37, 99, 235, 0.18)',
+                    shadowColor: colors.shadow
+                  }
+                ]}
+              >
+                {/* Left: Category Icon Squircle with subtle red accent ring */}
                 <View
                   style={[
                     styles.iconBadge,
                     {
-                      backgroundColor: catColor,
-                      borderColor: 'rgba(255, 255, 255, 0.25)',
-                      shadowColor: catDarkColor
+                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                      borderColor: catColor || '#DC2626'
                     }
                   ]}
                 >
-                  <Ionicons name={iconName} size={20} color="#FFFFFF" />
+                  <Ionicons name={iconName} size={18} color={catColor || '#EF4444'} />
                 </View>
 
-                {/* Middle: Title, Date, Category */}
+                {/* Middle: Title, Date, Category Tag */}
                 <View style={styles.infoCol}>
                   <Text style={[styles.transactionTitle, { color: colors.text }]} numberOfLines={1}>
                     {item.name}
                   </Text>
                   <View style={styles.metaRow}>
+                    <View style={[styles.categoryTag, { backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.1)' }]}>
+                      <Text style={[styles.metaCategory, { color: catColor || '#EF4444' }]}>{cat}</Text>
+                    </View>
                     <Text style={[styles.metaDate, { color: colors.textTertiary }]}>
                       {formatDate(item.date)}
                     </Text>
-                    <View style={styles.metaDot} />
-                    <Text style={[styles.metaCategory, { color: catColor }]}>{cat}</Text>
                   </View>
                 </View>
 
-                {/* Right: Amount & Actions */}
+                {/* Right: Amount in Crimson Red & Mini Actions */}
                 <View style={styles.amountCol}>
-                  <Text style={[styles.amountText, { color: colors.expense }]}>
+                  <Text style={[styles.amountText, { color: '#EF4444' }]}>
                     -{formatCurrency(item.amount)}
                   </Text>
 
                   <View style={styles.actionGroup}>
                     <TouchableOpacity
                       onPress={() => onEditExpense(item)}
-                      style={[styles.miniBtn, { backgroundColor: colors.surfaceSubtle }]}
+                      style={[styles.miniBtn, { backgroundColor: 'rgba(30, 58, 138, 0.25)', borderColor: 'rgba(37, 99, 235, 0.3)' }]}
                       hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
                       accessibilityLabel={`Edit ${item.name}`}
                     >
-                      <Ionicons name="pencil" size={13} color={colors.textSecondary} />
+                      <Ionicons name="pencil" size={12} color="#93C5FD" />
                     </TouchableOpacity>
 
                     <TouchableOpacity
                       onPress={() => handleDelete(item)}
-                      style={[styles.miniBtn, { backgroundColor: colors.expenseLight }]}
+                      style={[styles.miniBtn, { backgroundColor: 'rgba(220, 38, 38, 0.15)', borderColor: 'rgba(220, 38, 38, 0.3)' }]}
                       hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
                       accessibilityLabel={`Delete ${item.name}`}
                     >
-                      <Ionicons name="trash-outline" size={13} color={colors.expense} />
+                      <Ionicons name="trash-outline" size={12} color="#EF4444" />
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -240,8 +250,9 @@ const styles = StyleSheet.create({
   },
   countBadge: {
     paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 10
+    paddingVertical: 3,
+    borderRadius: 8,
+    borderWidth: 1
   },
   countBadgeText: {
     fontSize: 11,
@@ -253,34 +264,41 @@ const styles = StyleSheet.create({
     gap: 8
   },
   actionIconBtn: {
-    width: 32,
-    height: 32,
+    width: 34,
+    height: 34,
     borderRadius: 10,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)'
   },
   addBtnPill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 11,
-    paddingVertical: 6,
-    borderRadius: 10
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 10,
+    shadowColor: '#DC2626',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.35,
+    shadowRadius: 6,
+    elevation: 3
   },
   addBtnText: {
     color: '#FFFFFF',
     fontSize: 12,
-    fontWeight: '700'
+    fontWeight: '800'
   },
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
     paddingHorizontal: 12,
-    paddingVertical: 9,
+    paddingVertical: 10,
     borderRadius: 12,
     borderWidth: 1,
-    marginBottom: 12
+    marginBottom: 14
   },
   searchInput: {
     flex: 1,
@@ -291,13 +309,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 28,
-    borderRadius: 24,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
     marginTop: 4
   },
   emptyIconCircle: {
-    width: 54,
-    height: 54,
-    borderRadius: 18,
+    width: 52,
+    height: 52,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10
@@ -313,29 +333,29 @@ const styles = StyleSheet.create({
     lineHeight: 17
   },
   listContainer: {
-    gap: 12
+    gap: 10
   },
   transactionCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    borderRadius: 24,
-    minHeight: 76
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    borderRadius: 18,
+    borderWidth: 1,
+    minHeight: 70,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 3
   },
   iconBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 14,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.22,
-    shadowRadius: 6,
-    elevation: 3
+    marginRight: 12
   },
   infoCol: {
     flex: 1,
@@ -343,36 +363,37 @@ const styles = StyleSheet.create({
   },
   transactionTitle: {
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '800',
     letterSpacing: -0.2,
-    marginBottom: 3
+    marginBottom: 4
   },
   metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4
+    gap: 6
+  },
+  categoryTag: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 6,
+    borderWidth: 1
+  },
+  metaCategory: {
+    fontSize: 10,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.3
   },
   metaDate: {
     fontSize: 11,
     fontWeight: '500'
-  },
-  metaDot: {
-    width: 3,
-    height: 3,
-    borderRadius: 1.5,
-    backgroundColor: '#CBD5E1',
-    marginHorizontal: 3
-  },
-  metaCategory: {
-    fontSize: 11,
-    fontWeight: '700'
   },
   amountCol: {
     alignItems: 'flex-end'
   },
   amountText: {
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: '900',
     letterSpacing: -0.3,
     marginBottom: 4
   },
@@ -384,7 +405,8 @@ const styles = StyleSheet.create({
   miniBtn: {
     width: 28,
     height: 28,
-    borderRadius: 9,
+    borderRadius: 8,
+    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
   }

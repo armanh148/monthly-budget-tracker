@@ -6,12 +6,12 @@ import { useAuth } from '../context/AuthContext';
 import { palette, categoryColors } from '../theme/colors';
 
 const DEFAULT_DEMO_BARS = [
-  { key: 'FO', label: 'Food', pct: 42 },
-  { key: 'BI', label: 'Bills', pct: 76 },
-  { key: 'TR', label: 'Travel', pct: 58 },
-  { key: 'SH', label: 'Shop', pct: 92 },
-  { key: 'HE', label: 'Health', pct: 78 },
-  { key: 'OT', label: 'Other', pct: 48 }
+  { key: 'FOOD', label: 'Food', pct: 45 },
+  { key: 'BILL', label: 'Bills', pct: 80 },
+  { key: 'TRAV', label: 'Travel', pct: 60 },
+  { key: 'SHOP', label: 'Shop', pct: 90 },
+  { key: 'HLTH', label: 'Health', pct: 55 },
+  { key: 'OTHR', label: 'Other', pct: 35 }
 ];
 
 export default function CategoryBreakdown({ onSelectCategory, activeCategory }) {
@@ -28,43 +28,46 @@ export default function CategoryBreakdown({ onSelectCategory, activeCategory }) 
 
   return (
     <View style={styles.wrapper}>
-      {/* Executive Financial Chart Card */}
+      {/* Modern Executive Financial Breakdown Card */}
       <View
         style={[
-          styles.purpleCard,
+          styles.breakdownCard,
           {
-            backgroundColor: colors.chartBg,
+            backgroundColor: colors.chartBg || '#0A192F',
             shadowColor: colors.shadow
           }
         ]}
       >
-        {/* Top Clay Dropdown Pills Row (Mockup Style) */}
+        {/* Top Header Pill Row */}
         <View style={styles.pillsHeader}>
-          <View style={styles.purpleClayPill}>
-            <Text style={styles.purplePillText}>Outcome</Text>
-            <Ionicons name="chevron-down" size={14} color="#FFFFFF" />
+          <View style={styles.headerTitlePill}>
+            <View style={styles.redDot} />
+            <Text style={styles.headerTitleText}>Spending Breakdown</Text>
           </View>
 
-          <View style={styles.purpleClayPill}>
-            <Text style={styles.purplePillText}>Rs. {totalExpense.toLocaleString()}</Text>
+          <View style={styles.totalBadgePill}>
+            <Text style={styles.totalBadgeLabel}>Total:</Text>
+            <Text style={styles.totalBadgeValue}>Rs. {totalExpense.toLocaleString()}</Text>
           </View>
         </View>
 
-        {/* Inner Soft Violet Clay Well */}
-        <View style={[styles.chartWell, { backgroundColor: colors.chartWell }]}>
-          <Text style={styles.wellTitle}>Outcome Transactions</Text>
-          <Text style={styles.wellSubtitle}>
-            {hasRealData
-              ? 'Tap any bar to filter category'
-              : 'Preview • Add expenses to see live bars'}
-          </Text>
+        {/* Inner Chart Well */}
+        <View style={[styles.chartWell, { backgroundColor: colors.chartWell || '#080E1E' }]}>
+          <View style={styles.wellHeaderRow}>
+            <Text style={styles.wellTitle}>Monthly Analytics</Text>
+            <Text style={styles.wellSubtitle}>
+              {hasRealData
+                ? 'Tap a bar to isolate category'
+                : 'Preview • Add expenses to view live data'}
+            </Text>
+          </View>
 
-          {/* 3D Puffy Pink Vertical Pill Bars */}
+          {/* Sleek Vertical Capsule Bars */}
           <View style={styles.barsRow}>
             {hasRealData
               ? categories.map((cat) => {
                   const amount = categoryBreakdown[cat] || 0;
-                  const pct = Math.max(Math.round((amount / maxAmount) * 100), 22);
+                  const pct = Math.max(Math.round((amount / maxAmount) * 100), 18);
                   const isSelected = activeCategory === cat;
 
                   return (
@@ -77,18 +80,19 @@ export default function CategoryBreakdown({ onSelectCategory, activeCategory }) 
                       <View style={styles.barTrack}>
                         <View
                           style={[
-                            styles.pinkClayBar,
+                            styles.capsuleBar,
                             {
                               height: `${pct}%`,
-                              backgroundColor: isSelected ? '#E7A8A1' : colors.chartBar,
-                              borderTopColor: isSelected ? '#FEFFFE' : colors.chartBarTop,
-                              borderLeftColor: isSelected ? '#FEFFFE' : colors.chartBarTop,
-                              borderBottomColor: isSelected ? '#C88078' : colors.chartBarBottom
+                              backgroundColor: isSelected ? '#EF4444' : '#1E3A8A',
+                              borderColor: isSelected ? '#FCA5A5' : '#3B82F6',
+                              shadowColor: isSelected ? '#DC2626' : '#2563EB'
                             }
                           ]}
                         />
                       </View>
-                      <Text style={styles.barDayLabel}>{cat.slice(0, 2).toUpperCase()}</Text>
+                      <Text style={[styles.barDayLabel, isSelected && { color: '#EF4444', fontWeight: '900' }]}>
+                        {cat.slice(0, 4).toUpperCase()}
+                      </Text>
                     </TouchableOpacity>
                   );
                 })
@@ -97,14 +101,12 @@ export default function CategoryBreakdown({ onSelectCategory, activeCategory }) 
                     <View style={styles.barTrack}>
                       <View
                         style={[
-                          styles.pinkClayBar,
+                          styles.capsuleBar,
                           {
                             height: `${bar.pct}%`,
-                            opacity: 0.48,
-                            backgroundColor: colors.chartBar,
-                            borderTopColor: colors.chartBarTop,
-                            borderLeftColor: colors.chartBarTop,
-                            borderBottomColor: colors.chartBarBottom
+                            opacity: 0.45,
+                            backgroundColor: '#1E3A8A',
+                            borderColor: '#3B82F6'
                           }
                         ]}
                       />
@@ -126,7 +128,9 @@ export default function CategoryBreakdown({ onSelectCategory, activeCategory }) 
               onPress={() => onSelectCategory(null)}
               style={[styles.filterChip, activeCategory === null && styles.filterChipActive]}
             >
-              <Text style={styles.filterChipText}>All</Text>
+              <Text style={[styles.filterChipText, activeCategory === null && styles.filterChipTextActive]}>
+                All
+              </Text>
             </TouchableOpacity>
 
             {categories.map((cat) => {
@@ -138,8 +142,10 @@ export default function CategoryBreakdown({ onSelectCategory, activeCategory }) 
                   onPress={() => onSelectCategory(isSelected ? null : cat)}
                   style={[styles.filterChip, isSelected && styles.filterChipActive]}
                 >
-                  <Ionicons name={catInfo.icon} size={12} color="#FFFFFF" />
-                  <Text style={styles.filterChipText}>{cat}</Text>
+                  <Ionicons name={catInfo.icon} size={12} color={isSelected ? '#EF4444' : '#94A3B8'} />
+                  <Text style={[styles.filterChipText, isSelected && styles.filterChipTextActive]}>
+                    {cat}
+                  </Text>
                 </TouchableOpacity>
               );
             })}
@@ -154,66 +160,98 @@ const styles = StyleSheet.create({
   wrapper: {
     paddingHorizontal: 20,
     marginTop: 4,
-    marginBottom: 14
+    marginBottom: 16
   },
-  purpleCard: {
-    borderRadius: 24,
-    padding: 18,
+  breakdownCard: {
+    borderRadius: 22,
+    padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.14)',
+    borderColor: 'rgba(37, 99, 235, 0.22)',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowOpacity: 0.35,
+    shadowRadius: 18,
     elevation: 6
   },
   pillsHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 14,
-    gap: 10
+    marginBottom: 12,
+    gap: 8
   },
-  purpleClayPill: {
+  headerTitlePill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 14,
-    backgroundColor: 'rgba(255, 255, 255, 0.12)',
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    backgroundColor: 'rgba(15, 23, 42, 0.7)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.15)'
+    borderColor: 'rgba(255, 255, 255, 0.1)'
   },
-  purplePillText: {
-    color: '#FFFFFF',
+  redDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
+    backgroundColor: '#DC2626'
+  },
+  headerTitleText: {
+    color: '#F8FAFC',
     fontSize: 12,
-    fontWeight: '800'
+    fontWeight: '800',
+    letterSpacing: -0.2
+  },
+  totalBadgePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    backgroundColor: 'rgba(220, 38, 38, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(220, 38, 38, 0.35)'
+  },
+  totalBadgeLabel: {
+    color: 'rgba(255, 255, 255, 0.65)',
+    fontSize: 11,
+    fontWeight: '600'
+  },
+  totalBadgeValue: {
+    color: '#EF4444',
+    fontSize: 12,
+    fontWeight: '900'
   },
   chartWell: {
-    borderRadius: 18,
-    padding: 16,
+    borderRadius: 16,
+    padding: 14,
     borderWidth: 1,
-    borderColor: 'rgba(255, 227, 179, 0.1)'
+    borderColor: 'rgba(255, 255, 255, 0.06)'
+  },
+  wellHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 14
   },
   wellTitle: {
-    color: '#FFFFFF',
-    fontSize: 15,
+    color: '#F8FAFC',
+    fontSize: 14,
     fontWeight: '800',
     letterSpacing: -0.2
   },
   wellSubtitle: {
-    color: 'rgba(255, 255, 255, 0.72)',
+    color: '#94A3B8',
     fontSize: 11,
-    fontWeight: '500',
-    marginTop: 2,
-    marginBottom: 16
+    fontWeight: '500'
   },
   barsRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-around',
-    height: 136,
-    paddingTop: 8
+    height: 125,
+    paddingTop: 6
   },
   barCol: {
     alignItems: 'center',
@@ -222,51 +260,54 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   barTrack: {
-    height: 106,
-    width: 24,
+    height: 98,
+    width: 22,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 8
+    marginBottom: 6
   },
-  pinkClayBar: {
+  capsuleBar: {
     width: 14,
     borderRadius: 7,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
-    shadowColor: '#0A192F',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.4,
     shadowRadius: 6,
-    elevation: 3
+    elevation: 4
   },
   barDayLabel: {
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontSize: 11,
-    fontWeight: '800'
+    color: '#94A3B8',
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.3
   },
   filterRow: {
     flexDirection: 'row',
     gap: 8,
-    paddingTop: 14
+    paddingTop: 12
   },
   filterChip: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    paddingHorizontal: 12,
+    paddingHorizontal: 11,
     paddingVertical: 6,
-    borderRadius: 12,
-    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+    borderRadius: 10,
+    backgroundColor: 'rgba(15, 23, 42, 0.6)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)'
+    borderColor: 'rgba(255, 255, 255, 0.08)'
   },
   filterChipActive: {
-    backgroundColor: 'rgba(255, 255, 255, 0.32)',
-    borderColor: '#FFFFFF'
+    backgroundColor: 'rgba(220, 38, 38, 0.18)',
+    borderColor: '#DC2626'
   },
   filterChipText: {
-    color: '#FFFFFF',
+    color: '#94A3B8',
     fontSize: 11,
     fontWeight: '700'
+  },
+  filterChipTextActive: {
+    color: '#EF4444',
+    fontWeight: '800'
   }
 });
