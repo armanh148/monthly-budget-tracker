@@ -7,11 +7,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0A192F"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.arman.budgettracker",
