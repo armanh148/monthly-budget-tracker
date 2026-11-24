@@ -16,7 +16,6 @@ import { palette, getClayCard } from '../theme/colors';
 
 import Header from '../components/Header';
 import SummaryCards from '../components/SummaryCards';
-import InstallPromptBanner from '../components/InstallPromptBanner';
 import BudgetAlertBanner from '../components/BudgetAlertBanner';
 import MonthComparisonCard from '../components/MonthComparisonCard';
 import CategoryBreakdown from '../components/CategoryBreakdown';
@@ -28,7 +27,6 @@ import SetIncomeModal from '../components/SetIncomeModal';
 import AddEditExpenseModal from '../components/AddEditExpenseModal';
 import ServerConfigModal from '../components/ServerConfigModal';
 import ExportModal from '../components/ExportModal';
-import AIAssistantModal from '../components/AIAssistantModal';
 
 export default function HomeScreen() {
   const { themeMode } = useAuth();
@@ -49,7 +47,6 @@ export default function HomeScreen() {
   const [editingExpense, setEditingExpense] = useState(null);
   const [showServerConfig, setShowServerConfig] = useState(false);
   const [showExport, setShowExport] = useState(false);
-  const [showAiModal, setShowAiModal] = useState(false);
 
   const handleOpenEdit = (expense) => {
     setEditingExpense(expense);
@@ -112,46 +109,6 @@ export default function HomeScreen() {
 
           {/* 3. Main Budget Content Area */}
           <View style={[styles.mainContentSheet, { backgroundColor: colors.background }]}>
-            {/* iOS Safari Standalone Install Tip (auto-hides once installed) */}
-            <InstallPromptBanner />
-
-            {/* Groq AI Financial Coach Executive Banner */}
-            <View style={styles.aiAdvisorContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.aiAdvisorBanner,
-                  clayCard,
-                  { backgroundColor: colors.brandCard, borderColor: 'rgba(37, 99, 235, 0.4)' }
-                ]}
-                onPress={() => setShowAiModal(true)}
-                activeOpacity={0.8}
-                accessibilityLabel="Open Groq AI Financial Coach"
-              >
-                <View
-                  style={[
-                    styles.aiAdvisorIcon,
-                    { backgroundColor: 'rgba(37, 99, 235, 0.22)', borderColor: '#3B82F6' }
-                  ]}
-                >
-                  <Ionicons name="sparkles" size={18} color="#93C5FD" />
-                </View>
-                <View style={styles.aiAdvisorTextWrap}>
-                  <View style={styles.aiAdvisorHeaderRow}>
-                    <Text style={[styles.aiAdvisorTitle, { color: '#FFFFFF' }]}>
-                      Groq AI Financial Coach
-                    </Text>
-                    <View style={styles.aiNewPill}>
-                      <Text style={styles.aiNewPillText}>GROQ LPU™</Text>
-                    </View>
-                  </View>
-                  <Text style={[styles.aiAdvisorSub, { color: 'rgba(255, 255, 255, 0.9)' }]}>
-                    Instant spending insights, health check & financial tips
-                  </Text>
-                </View>
-                <Ionicons name="chevron-forward" size={18} color="#93C5FD" />
-              </TouchableOpacity>
-            </View>
-
             {/* Budget Alert Banner */}
             <BudgetAlertBanner />
 
@@ -313,8 +270,6 @@ export default function HomeScreen() {
       <ServerConfigModal visible={showServerConfig} onClose={() => setShowServerConfig(false)} />
 
       <ExportModal visible={showExport} onClose={() => setShowExport(false)} />
-
-      <AIAssistantModal visible={showAiModal} onClose={() => setShowAiModal(false)} />
     </SafeAreaView>
   );
 }
